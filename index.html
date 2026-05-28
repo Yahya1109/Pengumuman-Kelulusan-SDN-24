@@ -4,177 +4,363 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pengumuman Kelulusan UPTD SDN 24 Batangase</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
     <style>
+        :root {
+            --primary: #1d4ed8;
+            --primary-hover: #1e40af;
+            --success: #10b981;
+            --success-light: #d1fae5;
+            --success-text: #065f46;
+            --danger: #ef4444;
+            --danger-light: #fee2e2;
+            --danger-text: #991b1b;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --bg-body: #f8fafc;
+            --card-bg: #ffffff;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #f0f4f8 0%, #d7e3fc 100%);
+            /* Background gradasi dengan pola titik (dots) samar */
+            background-color: var(--bg-body);
+            background-image: 
+                radial-gradient(#cbd5e1 1px, transparent 1px),
+                linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            background-size: 20px 20px, 100% 100%;
+            background-position: 0 0, center center;
+            background-attachment: fixed;
+            
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            padding: 20px;
+            padding: 20px 15px;
             box-sizing: border-box;
+            color: var(--text-main);
         }
+
+        .main-wrapper {
+            width: 100%;
+            max-width: 550px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Card Container Utama */
         .container {
-            background-color: rgba(255, 255, 255, 0.95);
-            padding: 40px 30px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            background-color: var(--card-bg);
+            padding: 40px 35px;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0,0,0,0.02);
             text-align: center;
             width: 100%;
-            max-width: 450px;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
         }
+
+        /* Aksen garis atas pada card */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary), #3b82f6, #60a5fa);
+        }
+
+        /* Header Styles */
         .logo-sekolah {
-            width: 90px;
+            width: 85px;
             height: auto;
-            margin-bottom: 10px;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+            margin-bottom: 15px;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.08));
         }
-        .main-title { 
-            color: #1e293b; 
-            margin-top: 5px;
-            margin-bottom: 15px; 
-            font-weight: 600;
-            font-size: 17px;
-            line-height: 1.4;
-        }
-        .main-title .highlight {
-            font-size: 24px;
+
+        .title-utama {
+            color: var(--primary);
+            font-size: 26px;
             font-weight: 800;
-            color: #1d4ed8;
-            text-transform: uppercase;
-            display: block;
-            margin-bottom: 4px;
+            margin: 0 0 5px 0;
             letter-spacing: 0.5px;
         }
-        .main-title .sub-title {
+
+        .sub-title {
+            color: var(--text-main);
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0 0 2px 0;
+        }
+
+        .tahun-ajaran {
+            color: var(--text-muted);
             font-size: 14px;
-            color: #64748b;
             font-weight: 500;
-            display: block;
-            margin-top: 4px;
+            margin: 0 0 15px 0;
         }
-        p { 
-            color: #64748b; 
-            font-size: 14px; 
-            margin-bottom: 25px; 
-            line-height: 1.5;
+
+        .tanggal-resmi {
+            display: inline-block;
+            background-color: #eff6ff;
+            color: #1e3a8a;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            border: 1px solid #bfdbfe;
         }
+
+        /* Form Search */
+        .search-box {
+            margin-bottom: 10px;
+        }
+
         input[type="text"] {
             width: 100%;
-            padding: 14px;
-            margin: 10px 0 15px;
+            padding: 15px 20px;
+            margin: 0 0 15px 0;
             border: 2px solid #e2e8f0;
-            border-radius: 8px;
+            border-radius: 12px;
             font-size: 16px;
+            font-weight: 500;
             box-sizing: border-box;
             transition: all 0.3s ease;
             font-family: 'Poppins', sans-serif;
             text-align: center;
+            background-color: #f8fafc;
+            color: var(--text-main);
         }
+
         input[type="text"]:focus {
-            border-color: #3b82f6;
+            border-color: var(--primary);
+            background-color: #ffffff;
             outline: none;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+            box-shadow: 0 0 0 4px rgba(29, 78, 216, 0.15);
         }
+
+        input[type="text"]::placeholder {
+            color: #94a3b8;
+            font-weight: 400;
+        }
+
         button {
-            background-color: #3b82f6;
+            background-color: var(--primary);
             color: white;
             border: none;
-            padding: 14px 20px;
-            border-radius: 8px;
+            padding: 15px 20px;
+            border-radius: 12px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             width: 100%;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-family: 'Poppins', sans-serif;
+            box-shadow: 0 4px 6px rgba(29, 78, 216, 0.2);
         }
+
         button:hover { 
-            background-color: #2563eb; 
+            background-color: var(--primary-hover); 
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+            box-shadow: 0 8px 15px rgba(29, 78, 216, 0.3);
         }
+        
         button:active {
-            transform: translateY(0);
+            transform: translateY(1px);
         }
-        #hasil {
-            margin-top: 25px;
-            padding: 20px;
-            border-radius: 12px;
+
+        /* Card Hasil Pengumuman */
+        #hasil-container {
             display: none;
+            margin-top: 30px;
             text-align: left;
-            line-height: 1.7;
-            font-size: 14px;
-            animation: fadeIn 0.4s ease;
+            animation: fadeIn 0.5s ease forwards;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+
+        .result-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.04);
+            position: relative;
         }
-        .lulus { background-color: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
-        .tidak-lulus { background-color: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
-        .tidak-ditemukan { background-color: #fffbeb; color: #92400e; border: 1px solid #fde68a; text-align: center !important; }
-        
-        .status-badge {
-            display: inline-block;
-            padding: 8px 20px;
-            border-radius: 8px;
+
+        .result-header {
+            text-align: center;
             font-weight: 700;
-            margin-top: 15px;
-            font-size: 16px;
-            letter-spacing: 0.5px;
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--text-main);
+            padding-bottom: 10px;
+            border-bottom: 2px dashed #e2e8f0;
         }
-        .badge-lulus { background-color: #22c55e; color: white; box-shadow: 0 4px 10px rgba(34, 197, 94, 0.3); }
-        .badge-gagal { background-color: #ef4444; color: white; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); }
-        
-        /* Gaya khusus untuk mensejajarkan titik dua pada biodata */
+
         .data-row {
             display: flex;
-            margin-bottom: 6px;
-            border-bottom: 1px dashed rgba(0,0,0,0.05);
-            padding-bottom: 6px;
+            margin-bottom: 12px;
+            align-items: flex-start;
         }
-        .data-row:last-child {
-            border-bottom: none;
-        }
+
         .data-label {
             font-weight: 600;
-            color: #475569;
-            width: 135px;
+            color: var(--text-muted);
+            width: 130px;
             flex-shrink: 0;
+            font-size: 14px;
         }
+        
+        .data-titik {
+            margin-right: 10px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
         .data-value {
-            color: #0f172a;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* Status Kelulusan */
+        .status-wrapper {
+            text-align: center;
+            margin: 25px 0 10px 0;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 12px 40px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 24px;
+            letter-spacing: 2px;
+            animation: zoomIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .badge-lulus { 
+            background-color: var(--success); 
+            color: white; 
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3); 
+        }
+
+        .badge-gagal { 
+            background-color: var(--danger); 
+            color: white; 
+            box-shadow: 0 10px 20px rgba(239, 68, 68, 0.3); 
+        }
+
+        /* Pesan Ucapan Lulus */
+        .pesan-ucapan {
+            background-color: var(--success-light);
+            color: var(--success-text);
+            padding: 15px 20px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 500;
+            text-align: center;
+            margin-top: 20px;
+            line-height: 1.6;
+            border: 1px solid #a7f3d0;
+        }
+
+        /* Pesan Error (Tidak Ditemukan) */
+        .alert-error {
+            background-color: var(--danger-light);
+            color: var(--danger-text);
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            text-align: center;
+            border: 1px solid #fecaca;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 25px;
+            text-align: center;
+            color: #64748b;
+            font-size: 12px;
             font-weight: 500;
         }
-        .titik-dua {
-            margin-right: 8px;
-            color: #475569;
-            font-weight: 600;
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes zoomIn {
+            0% { opacity: 0; transform: scale(0.3); }
+            50% { opacity: 1; transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive Mobile */
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+                border-radius: 20px;
+            }
+            .title-utama { font-size: 22px; }
+            .sub-title { font-size: 14px; }
+            .tanggal-resmi { font-size: 11px; padding: 5px 12px; }
+            
+            .data-label { width: 110px; font-size: 13px; }
+            .data-value { font-size: 13px; }
+            
+            .status-badge { font-size: 20px; padding: 10px 30px; }
+            .pesan-ucapan { font-size: 12px; padding: 12px 15px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <!-- Menambahkan tempat Logo -->
-        <img src="logo.png.png" alt="Logo UPTD SDN 24 Batangase" class="logo-sekolah" onerror="this.src='https://placehold.co/100x100/3b82f6/white?text=SDN+24'">
-        
-        <h2 class="main-title">
-            <span class="highlight">Pengumuman Kelulusan</span>
-            Siswa Kelas VI UPTD SDN 24 Batangase
-            <span class="sub-title">Tahun Ajaran 2025/2026</span>
-        </h2>
-        
-        <p>Silakan masukkan NISN untuk melihat pengumuman kelulusan Kelas 6.</p>
-        
-        <input type="text" id="nisnInput" placeholder="Masukkan NISN..." autocomplete="off">
-        <button onclick="cekKelulusan()">Cek Hasil</button>
+    <div class="main-wrapper">
+        <div class="container">
+            <!-- Header Sekolah -->
+            <img src="logo.png.png" alt="Logo Sekolah" class="logo-sekolah" onerror="this.src='https://placehold.co/150x150/1d4ed8/white?text=SDN+24'">
+            
+            <h1 class="title-utama">PENGUMUMAN KELULUSAN</h1>
+            <h2 class="sub-title">Siswa Kelas VI UPTD SDN 24 Batangase</h2>
+            <p class="tahun-ajaran">Tahun Ajaran 2025/2026</p>
+            
+            <div class="tanggal-resmi">
+                Pengumuman Resmi: 2 Juni 2026 Pukul 09.00 WITA
+            </div>
+            
+            <!-- Form Pencarian -->
+            <div class="search-box">
+                <input type="text" id="nisnInput" placeholder="Masukkan Nomor NISN" autocomplete="off" onkeypress="handleEnter(event)">
+                <button onclick="cekKelulusan()">Cek Hasil</button>
+            </div>
 
-        <div id="hasil"></div>
+            <!-- Kontainer Hasil (Disembunyikan secara default) -->
+            <div id="hasil-container"></div>
+        </div>
+        
+        <!-- Footer Resmi -->
+        <div class="footer">
+            &copy; 2026 UPTD SDN 24 Batangase<br>Sistem Informasi Pengumuman Kelulusan
+        </div>
     </div>
 
     <script>
@@ -280,52 +466,124 @@
             { nisn: "3144842295", nama: "VENTINO DIARGA PUTERA SAFI'I", jk: "Laki-laki", tempatLahir: "MAKASSAR", tanggalLahir: "14 Februari 2014", status: "LULUS" }
         ];
 
+        // Memicu pencarian ketika tombol Enter ditekan pada form input
+        function handleEnter(event) {
+            if (event.key === 'Enter') {
+                cekKelulusan();
+            }
+        }
+
+        // Fungsi pemicu animasi Confetti (kertas warna-warni)
+        function jalankanConfetti() {
+            var count = 200;
+            var defaults = {
+                origin: { y: 0.7 },
+                zIndex: 9999
+            };
+
+            function fire(particleRatio, opts) {
+                confetti(Object.assign({}, defaults, opts, {
+                    particleCount: Math.floor(count * particleRatio)
+                }));
+            }
+
+            fire(0.25, { spread: 26, startVelocity: 55 });
+            fire(0.2, { spread: 60 });
+            fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+            fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+            fire(0.1, { spread: 120, startVelocity: 45 });
+        }
+
+        // Fungsi utama untuk mengecek dan menampilkan hasil kelulusan
         function cekKelulusan() {
             const input = document.getElementById("nisnInput").value.trim();
-            const hasilDiv = document.getElementById("hasil");
+            const hasilContainer = document.getElementById("hasil-container");
             
+            // Reset state animasi
+            hasilContainer.style.display = "none";
+            
+            // Validasi Input Kosong
             if(input === "") {
-                alert("Harap masukkan NISN terlebih dahulu!");
+                hasilContainer.style.display = "block";
+                hasilContainer.innerHTML = `
+                    <div class="alert-error">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                        Silakan masukkan NISN terlebih dahulu!
+                    </div>
+                `;
                 return;
             }
 
             // Mencari siswa berdasarkan NISN
-        const siswa = dataSiswa.find(s => s.nisn === input);
+            const siswa = dataSiswa.find(s => s.nisn === input);
+            
+            // Render ulang div hasil agar animasi re-trigger
+            setTimeout(() => {
+                hasilContainer.style.display = "block";
 
-        hasilDiv.style.display = "block"; // Tampilkan kotak hasil
+                if (siswa) {
+                    let cardHTML = `
+                        <div class="result-card">
+                            <div class="result-header">HASIL PENCARIAN</div>
+                            
+                            <div class="data-row">
+                                <div class="data-label">Nama Lengkap</div>
+                                <div class="data-titik">:</div>
+                                <div class="data-value">${siswa.nama}</div>
+                            </div>
+                            <div class="data-row">
+                                <div class="data-label">NISN</div>
+                                <div class="data-titik">:</div>
+                                <div class="data-value">${siswa.nisn}</div>
+                            </div>
+                            <div class="data-row">
+                                <div class="data-label">Jenis Kelamin</div>
+                                <div class="data-titik">:</div>
+                                <div class="data-value">${siswa.jk === 'Laki-laki' ? 'Laki-laki' : 'Perempuan'}</div>
+                            </div>
+                            <div class="data-row">
+                                <div class="data-label">Tempat, Tgl Lahir</div>
+                                <div class="data-titik">:</div>
+                                <div class="data-value">${siswa.tempatLahir}, ${siswa.tanggalLahir}</div>
+                            </div>
+                    `;
 
-        if (siswa) {
-            if (siswa.status === "LULUS") {
-                hasilDiv.className = "lulus";
-                hasilDiv.innerHTML = `
-                    <div style="text-align: center; margin-bottom: 15px; font-weight: 700; font-size: 18px; color: #15803d;">Data Ditemukan</div>
-                    <div class="data-row"><div class="data-label">Nama</div> <div class="titik-dua">:</div> <div class="data-value">${siswa.nama}</div></div>
-                    <div class="data-row"><div class="data-label">NISN</div> <div class="titik-dua">:</div> <div class="data-value">${siswa.nisn}</div></div>
-                    <div class="data-row"><div class="data-label">Jenis Kelamin</div> <div class="titik-dua">:</div> <div class="data-value">${siswa.jk}</div></div>
-                    <div class="data-row"><div class="data-label">Tempat, Tgl Lahir</div> <div class="titik-dua">:</div> <div class="data-value">${siswa.tempatLahir}, ${siswa.tanggalLahir}</div></div>
-                    <div style="text-align: center; margin-top: 15px;">
-                        <span class="status-badge badge-lulus">${siswa.status}</span>
-                    </div>
-                `;
-            } else {
-                hasilDiv.className = "tidak-lulus";
-                hasilDiv.innerHTML = `
-                    <div style="text-align: center; margin-bottom: 15px; font-weight: 700; font-size: 18px; color: #b91c1c;">Data Ditemukan</div>
-                    <div class="data-row"><div class="data-label">Nama</div> <div class="titik-dua">:</div> <div class="data-value">${siswa.nama}</div></div>
-                    <div class="data-row"><div class="data-label">NISN</div> <div class="titik-dua">:</div> <div class="data-value">${siswa.nisn}</div></div>
-                    <div class="data-row"><div class="data-label">Jenis Kelamin</div> <div class="titik-dua">:</div> <div class="data-value">${siswa.jk}</div></div>
-                    <div class="data-row"><div class="data-label">Tempat, Tgl Lahir</div> <div class="titik-dua">:</div> <div class="data-value">${siswa.tempatLahir}, ${siswa.tanggalLahir}</div></div>
-                    <div style="text-align: center; margin-top: 15px;">
-                        <span class="status-badge badge-gagal">${siswa.status}</span>
-                    </div>
-                `;
-            }
-        } else {
-            hasilDiv.className = "tidak-ditemukan";
-            hasilDiv.innerHTML = `Data dengan NISN <strong>${input}</strong> tidak ditemukan.<br><br>Pastikan NISN yang dimasukkan sudah benar.`;
+                    if (siswa.status === "LULUS") {
+                        jalankanConfetti(); // Efek perayaan kertas
+                        
+                        cardHTML += `
+                            <div class="status-wrapper">
+                                <span class="status-badge badge-lulus">LULUS</span>
+                            </div>
+                            <div class="pesan-ucapan">
+                                Selamat dan sukses atas kelulusan Anda. Teruslah belajar, berprestasi, dan menjaga nama baik sekolah.
+                            </div>
+                        `;
+                    } else {
+                        cardHTML += `
+                            <div class="status-wrapper">
+                                <span class="status-badge badge-gagal">TIDAK LULUS</span>
+                            </div>
+                            <div class="pesan-ucapan" style="background-color: var(--danger-light); color: var(--danger-text); border-color: #fecaca;">
+                                Tetap semangat dan jangan putus asa. Kesuksesan masih menanti di waktu yang berbeda.
+                            </div>
+                        `;
+                    }
+
+                    cardHTML += `</div>`; // Tutup card
+                    hasilContainer.innerHTML = cardHTML;
+                    
+                } else {
+                    hasilContainer.innerHTML = `
+                        <div class="alert-error">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                            Data tidak ditemukan. Pastikan NISN yang dimasukkan benar.
+                        </div>
+                    `;
+                }
+            }, 10); // Jeda singkat agar DOM merender ulang animasi
         }
-    }
-</script>
+    </script>
 
 </body>
 </html>
