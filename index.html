@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengumuman Kelulusan UPTD SDN 24 Batangase</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f0f4f8 0%, #d7e3fc 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            text-align: center;
+            width: 100%;
+            max-width: 450px;
+        }
+        .logo-sekolah {
+            width: 90px;
+            height: auto;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+        }
+        .main-title { 
+            color: #1e293b; 
+            margin-top: 5px;
+            margin-bottom: 15px; 
+            font-weight: 600;
+            font-size: 17px;
+            line-height: 1.4;
+        }
+        .main-title .highlight {
+            font-size: 24px;
+            font-weight: 800;
+            color: #1d4ed8;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+        .main-title .sub-title {
+            font-size: 14px;
+            color: #64748b;
+            font-weight: 500;
+            display: block;
+            margin-top: 4px;
+        }
+        p { 
+            color: #64748b; 
+            font-size: 14px; 
+            margin-bottom: 25px; 
+            line-height: 1.5;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+        }
+        input[type="text"]:focus {
+            border-color: #3b82f6;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        button {
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+        button:hover { 
+            background-color: #2563eb; 
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        #hasil {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 12px;
+            display: none;
+            text-align: left;
+            line-height: 1.7;
+            font-size: 14px;
+            animation: fadeIn 0.4s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .lulus { background-color: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+        .tidak-lulus { background-color: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+        .tidak-ditemukan { background-color: #fffbeb; color: #92400e; border: 1px solid #fde68a; text-align: center !important; }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            margin-top: 15px;
+            font-size: 16px;
+            letter-spacing: 0.5px;
+        }
+        .badge-lulus { background-color: #22c55e; color: white; box-shadow: 0 4px 10px rgba(34, 197, 94, 0.3); }
+        .badge-gagal { background-color: #ef4444; color: white; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); }
+        
+        /* Gaya khusus untuk mensejajarkan titik dua pada biodata */
+        .data-row {
+            display: flex;
+            margin-bottom: 6px;
+            border-bottom: 1px dashed rgba(0,0,0,0.05);
+            padding-bottom: 6px;
+        }
+        .data-row:last-child {
+            border-bottom: none;
+        }
+        .data-label {
+            font-weight: 600;
+            color: #475569;
+            width: 135px;
+            flex-shrink: 0;
+        }
+        .data-value {
+            color: #0f172a;
+            font-weight: 500;
+        }
+        .titik-dua {
+            margin-right: 8px;
+            color: #475569;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Menambahkan tempat Logo -->
+        <img src="logo.png" alt="Logo UPTD SDN 24 Batangase" class="logo-sekolah" onerror="this.src='https://placehold.co/100x100/3b82f6/white?text=SDN+24'">
+        
+        <h2 class="main-title">
+            <span class="highlight">Pengumuman Kelulusan</span>
+            Siswa Kelas VI UPTD SDN 24 Batangase
+            <span class="sub-title">Tahun Ajaran 2025/2026</span>
+        </h2>
+        
+        <p>Silakan masukkan NISN untuk melihat pengumuman kelulusan Kelas 6.</p>
+        
+        <input type="text" id="nisnInput" placeholder="Masukkan NISN..." autocomplete="off">
+        <button onclick="cekKelulusan()">Cek Hasil</button>
+
+        <div id="hasil"></div>
+    </div>
+
+    <script>
+        // Database 98 Siswa UPTD SDN 24 BATANGASE
+        const dataSiswa = [
+            { nisn: "0136855196", nama: "AHMAD DZAKI LAMBO", jk: "Laki-laki", tempatLahir: "MAKASSAR", tanggalLahir: "03 Desember 2013", status: "LULUS" },
+            { nisn: "0139589138", nama: "AQZA AZ ZAHRA", jk: "Perempuan", tempatLahir: "MAROS", tanggalLahir: "18 Oktober 2013", status: "LULUS" },
+            { nisn: "0146003771", nama: "M. FATHAN AL QIFARI", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "26 April 2014", status: "LULUS" },
+            { nisn: "3133289532", nama: "PUTRI ANUGRAH", jk: "Perempuan", tempatLahir: "MAROS", tanggalLahir: "29 Oktober 2013", status: "LULUS" },
+            { nisn: "0141517833", nama: "AQHILA ULIFAH ALFRIANA", jk: "Perempuan", tempatLahir: "MAROS", tanggalLahir: "13 Januari 2014", status: "LULUS" },
+            { nisn: "0141688822", nama: "FAUZIAH", jk: "Perempuan", tempatLahir: "TIMIKA", tanggalLahir: "31 Maret 2014", status: "LULUS" },
+            { nisn: "0143088467", nama: "PANDU APRILIANSYAH", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "17 April 2014", status: "LULUS" },
+            { nisn: "0138522656", nama: "MOH. YAZID TAUFIQURROHΜΑΝ", jk: "Laki-laki", tempatLahir: "BANYUWANGI", tanggalLahir: "22 September 2013", status: "LULUS" },
+            { nisn: "0137135368", nama: "SYAHRINI ALYA SAFITRI SYAHRIR", jk: "Perempuan", tempatLahir: "Makassar", tanggalLahir: "13 Agustus 2013", status: "LULUS" },
+            { nisn: "0136934743", nama: "ADBIAN", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "07 Oktober 2013", status: "LULUS" },
+            { nisn: "0138028197", nama: "FATHIR AHMAD RAMDAN", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "23 Juli 2013", status: "LULUS" },
+            { nisn: "0145726909", nama: "DALISYAH DJAELANI BAKRI", jk: "Perempuan", tempatLahir: "MAKASSAR", tanggalLahir: "05 Februari 2014", status: "LULUS" },
+            { nisn: "0143086962", nama: "MUH. AFKAR ARAFAT", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "10 Maret 2014", status: "LULUS" },
+            { nisn: "0137771371", nama: "EL SHADIQ MAKKAWANI", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "20 April 2013", status: "LULUS" },
+            { nisn: "0141502368", nama: "MUH. KHAIRUL AZZAM R", jk: "Laki-laki", tempatLahir: "MAKASSAR", tanggalLahir: "18 Februari 2014", status: "LULUS" },
+            { nisn: "0138749540", nama: "AYATUL HUSNA", jk: "Perempuan", tempatLahir: "MAROS", tanggalLahir: "11 September 2013", status: "LULUS" },
+            { nisn: "0139200123", nama: "SYAHRUL RAMADAN", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "11 Juli 2013", status: "LULUS" },
+            { nisn: "0139646904", nama: "MUH NUR AL-FATIH SAPUTRA B", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "12 November 2013", status: "LULUS" },
+            { nisn: "0146432119", nama: "AMELIA KARIM", jk: "Perempuan", tempatLahir: "MAKASSAR", tanggalLahir: "11 Juni 2014", status: "LULUS" },
+            { nisn: "0143197762", nama: "ANDI ARFAIZAL PRAWIRA ASDAR", jk: "Laki-laki", tempatLahir: "Maros", tanggalLahir: "19 Maret 2014", status: "LULUS" },
+            { nisn: "0131738099", nama: "ZHALWA DZIKRIANI", jk: "Perempuan", tempatLahir: "MAROS", tanggalLahir: "14 November 2013", status: "LULUS" },
+            { nisn: "0139395792", nama: "NUR KAYLA ZALIANRA", jk: "Perempuan", tempatLahir: "MAROS", tanggalLahir: "27 Agustus 2013", status: "LULUS" },
+            { nisn: "3147417634", nama: "AINUN MAHYA", jk: "Perempuan", tempatLahir: "MAKASSAR", tanggalLahir: "20 Januari 2014", status: "LULUS" },
+            { nisn: "0134195620", nama: "MUHAMMAD ALIF SAPUTRA", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "23 Agustus 2013", status: "LULUS" },
+            { nisn: "0148328966", nama: "KHAIL AZKA", jk: "Laki-laki", tempatLahir: "Sorong", tanggalLahir: "05 Februari 2014", status: "LULUS" },
+            { nisn: "3144689830", nama: "AZKA ADDRIC YUSUF", jk: "Laki-laki", tempatLahir: "BANYUWANGI", tanggalLahir: "20 Februari 2014", status: "LULUS" },
+            { nisn: "0149779260", nama: "MUH. FATHIR HR", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "04 Mei 2014", status: "LULUS" },
+            { nisn: "0137042897", nama: "NUR AFIFAH SALSABILLA K", jk: "Perempuan", tempatLahir: "MAROS", tanggalLahir: "02 November 2013", status: "LULUS" },
+            { nisn: "0148962739", nama: "SYIFA FATIHAH", jk: "Perempuan", tempatLahir: "Makassar", tanggalLahir: "28 Mei 2014", status: "LULUS" },
+            { nisn: "0128975981", nama: "NABILA AMIRA TALIB", jk: "Perempuan", tempatLahir: "MAROS", tanggalLahir: "16 November 2012", status: "LULUS" },
+            { nisn: "0148427589", nama: "HANAAN RIFAI DARWIS", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "14 April 2014", status: "LULUS" },
+            { nisn: "3147082214", nama: "MUHAMMAD RAAFZANJANI RAJAB", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "24 Mei 2014", status: "LULUS" },
+            { nisn: "0143245557", nama: "MASYA AULIA S", jk: "Perempuan", tempatLahir: "Maros", tanggalLahir: "16 Mei 2014", status: "LULUS" },
+            { nisn: "0146415041", nama: "UFAIRA NUR AFIFA", jk: "Perempuan", tempatLahir: "Maros", tanggalLahir: "03 Maret 2014", status: "LULUS" },
+            { nisn: "3132059382", nama: "AURANI ALTHAFUNNISA AR", jk: "Perempuan", tempatLahir: "MAKASSAR", tanggalLahir: "31 Desember 2013", status: "LULUS" },
+            { nisn: "3136709940", nama: "NUR ACHMAD JAELANI", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "20 Mei 2013", status: "LULUS" },
+            { nisn: "0133397750", nama: "ST. NAJWA KHAERUNNISA", jk: "Perempuan", tempatLahir: "MAKASSAR", tanggalLahir: "31 Agustus 2013", status: "LULUS" },
+            { nisn: "0148302522", nama: "AL AZHAR ALBRIAN", jk: "Laki-laki", tempatLahir: "JENEPONTO", tanggalLahir: "17 April 2014", status: "LULUS" },
+            { nisn: "0132361596", nama: "MUHAMMAD LUTFI", jk: "Laki-laki", tempatLahir: "Maros", tanggalLahir: "29 Oktober 2013", status: "LULUS" },
+            { nisn: "0134864825", nama: "MUH ALHAM SYAFWANA", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "14 Desember 2013", status: "LULUS" },
+            { nisn: "3121282995", nama: "MUH. RIDWAN YUSUF", jk: "Laki-laki", tempatLahir: "MAKASSAR", tanggalLahir: "04 April 2012", status: "LULUS" },
+            { nisn: "0136374161", nama: "M. RAHMADAN HAYKAL", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "31 Juli 2013", status: "LULUS" },
+            { nisn: "3142219060", nama: "MUHAMMAD ISHAK", jk: "Laki-laki", tempatLahir: "MAKASSAR", tanggalLahir: "14 Februari 2014", status: "LULUS" },
+            { nisn: "3134687326", nama: "MUH. FHADEL RIZKY", jk: "Laki-laki", tempatLahir: "MAKASSAR", tanggalLahir: "12 Oktober 2013", status: "LULUS" },
+            { nisn: "0146649852", nama: "FAIZUL DZAKI RISKYANTO", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "01 Mei 2014", status: "LULUS" },
+            { nisn: "0136072006", nama: "ADITYA PUTRA PRAYUDHA", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "13 September 2013", status: "LULUS" },
+            { nisn: "0147499913", nama: "DZAKY ASYRAFUL ANAM", jk: "Laki-laki", tempatLahir: "Maros", tanggalLahir: "17 Juni 2014", status: "LULUS" },
+            { nisn: "3147167562", nama: "Nur Aisyah", jk: "Perempuan", tempatLahir: "Maros", tanggalLahir: "09 Mei 2014", status: "LULUS" },
+            { nisn: "3137161548", nama: "MARSELINA", jk: "Perempuan", tempatLahir: "Maros", tanggalLahir: "13 Maret 2013", status: "LULUS" },
+            { nisn: "3142408249", nama: "LIYANA ERUM ZAHIRAH", jk: "Perempuan", tempatLahir: "MAKASSAR", tanggalLahir: "11 Juni 2014", status: "LULUS" },
+            { nisn: "0132785650", nama: "AFIFAH NAHDA RAFANDAH", jk: "Perempuan", tempatLahir: "MAROS", tanggalLahir: "12 Desember 2013", status: "LULUS" },
+            { nisn: "0134885731", nama: "NUR AZISAH", jk: "Perempuan", tempatLahir: "MAROS", tanggalLahir: "15 September 2013", status: "LULUS" },
+            { nisn: "3148845422", nama: "SULTAN NAUFAL MUBARAK", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "09 Mei 2014", status: "LULUS" },
+            { nisn: "0134351771", nama: "ARFA SAPUTRA", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "10 September 2013", status: "LULUS" },
+            { nisn: "0134917990", nama: "RAFLY ADITYA SAMOLA", jk: "Laki-laki", tempatLahir: "BONE", tanggalLahir: "18 Maret 2013", status: "LULUS" },
+            { nisn: "3143709408", nama: "ABDUL RACHMAT ASRUL", jk: "Laki-laki", tempatLahir: "MAKASSAR", tanggalLahir: "27 Februari 2014", status: "LULUS" },
+            { nisn: "0148105436", nama: "HAFIZHUL FURQAN MUHARRAM", jk: "Laki-laki", tempatLahir: "Maros", tanggalLahir: "17 Maret 2014", status: "LULUS" },
+            { nisn: "0149639641", nama: "WAFQRI AKMAL", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "19 Maret 2014", status: "LULUS" },
+            { nisn: "0146325973", nama: "ANDI ANINDYA AULIA BASDIAR PUTRI", jk: "Perempuan", tempatLahir: "MAROS", tanggalLahir: "03 Februari 2014", status: "LULUS" },
+            { nisn: "0149458285", nama: "RATU MICHAELA AMRAN", jk: "Perempuan", tempatLahir: "MAROS", tanggalLahir: "25 Juni 2014", status: "LULUS" },
+            { nisn: "3130625681", nama: "MUH RESKI DARMAWAN", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "10 November 2013", status: "LULUS" },
+            { nisn: "0133587636", nama: "NURHIDAYAH", jk: "Perempuan", tempatLahir: "MAROS", tanggalLahir: "01 November 2013", status: "LULUS" },
+            { nisn: "0135102258", nama: "MUHAMMAD ERLANGGA SAPUTRA", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "20 Desember 2013", status: "LULUS" },
+            { nisn: "0134643529", nama: "AQILAH ZULAIKAH AZIS", jk: "Perempuan", tempatLahir: "MAROS", tanggalLahir: "03 Juli 2013", status: "LULUS" },
+            { nisn: "0148077985", nama: "BILQIS HUMAIRAH", jk: "Perempuan", tempatLahir: "MAROS", tanggalLahir: "15 Juni 2014", status: "LULUS" },
+            { nisn: "0135295787", nama: "NADIRA M", jk: "Perempuan", tempatLahir: "MAROS", tanggalLahir: "21 Oktober 2013", status: "LULUS" },
+            { nisn: "0133277335", nama: "A. ADITYA RAMADHAN", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "11 Juli 2013", status: "LULUS" },
+            { nisn: "3139038061", nama: "AQIFAH NAYLA RAMADHANI", jk: "Perempuan", tempatLahir: "MAROS", tanggalLahir: "24 Juli 2013", status: "LULUS" },
+            { nisn: "0149339301", nama: "ABD RAHMAN", jk: "Laki-laki", tempatLahir: "Maros", tanggalLahir: "03 April 2014", status: "LULUS" },
+            { nisn: "3135738129", nama: "QEYLA APRILLIA PUTRI", jk: "Perempuan", tempatLahir: "MAKASSAR", tanggalLahir: "08 April 2013", status: "LULUS" },
+            { nisn: "0135967525", nama: "DZAKY ALMAIR JAMIL", jk: "Laki-laki", tempatLahir: "MAKASSAR", tanggalLahir: "05 Juni 2013", status: "LULUS" },
+            { nisn: "0132964587", nama: "M. IMRAN", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "14 Desember 2013", status: "LULUS" },
+            { nisn: "0131636932", nama: "ASMA NUR RAMADHANI", jk: "Perempuan", tempatLahir: "MAKASSAR", tanggalLahir: "03 Agustus 2013", status: "LULUS" },
+            { nisn: "0147915521", nama: "ADIL", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "07 Mei 2014", status: "LULUS" },
+            { nisn: "0136201612", nama: "KHAERUL ASYAM", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "17 Desember 2013", status: "LULUS" },
+            { nisn: "0149692352", nama: "MUH. BATARA BUGIS", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "06 Februari 2014", status: "LULUS" },
+            { nisn: "0133445644", nama: "TITANIA ALMAIDAH RAMADANTI", jk: "Perempuan", tempatLahir: "MAROS", tanggalLahir: "15 Juli 2013", status: "LULUS" },
+            { nisn: "0142532016", nama: "MUH DAFA SYUKRI", jk: "Laki-laki", tempatLahir: "MAKASSAR", tanggalLahir: "16 Juni 2014", status: "LULUS" },
+            { nisn: "0145261388", nama: "ADELIA KARIM", jk: "Perempuan", tempatLahir: "MAKASSAR", tanggalLahir: "11 Juni 2014", status: "LULUS" },
+            { nisn: "3134472222", nama: "MUH AKBAR", jk: "Laki-laki", tempatLahir: "PA'BUNDUKANG", tanggalLahir: "23 April 2013", status: "LULUS" },
+            { nisn: "0147496222", nama: "FACHRY HAMZAN", jk: "Laki-laki", tempatLahir: "Maros", tanggalLahir: "17 Mei 2014", status: "LULUS" },
+            { nisn: "0143784389", nama: "INAYAH AZMI ATHIFA", jk: "Perempuan", tempatLahir: "MAKASSAR", tanggalLahir: "06 Mei 2014", status: "LULUS" },
+            { nisn: "0133195511", nama: "SALSABILA", jk: "Perempuan", tempatLahir: "Maros", tanggalLahir: "10 Desember 2013", status: "LULUS" },
+            { nisn: "3142268627", nama: "AMIRAH REZKY RAMADANI", jk: "Perempuan", tempatLahir: "MAKASSAR", tanggalLahir: "24 Juni 2014", status: "LULUS" },
+            { nisn: "0148882367", nama: "ZHOFIYA NABILA AS", jk: "Perempuan", tempatLahir: "MAROS", tanggalLahir: "18 Januari 2014", status: "LULUS" },
+            { nisn: "0135100223", nama: "MAHARANI KHOLISA ANDINI", jk: "Perempuan", tempatLahir: "MAROS", tanggalLahir: "14 November 2013", status: "LULUS" },
+            { nisn: "3145670724", nama: "ALIFA NURUL KHADIJAH", jk: "Perempuan", tempatLahir: "MAROS", tanggalLahir: "10 Juni 2014", status: "LULUS" },
+            { nisn: "0147156955", nama: "SHAFIRA KHUMAIRAH MALIK", jk: "Perempuan", tempatLahir: "MAROS", tanggalLahir: "08 Februari 2014", status: "LULUS" },
+            { nisn: "0132240719", nama: "RESTU AWAL RAMADANI", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "06 Juli 2013", status: "LULUS" },
+            { nisn: "0149143944", nama: "BILQIS AQILA KHUMAIRAH", jk: "Perempuan", tempatLahir: "Makassar", tanggalLahir: "11 Mei 2014", status: "LULUS" },
+            { nisn: "0142456173", nama: "NUR AULIA RAMADHANI", jk: "Perempuan", tempatLahir: "MAKASSAR", tanggalLahir: "20 Juni 2014", status: "LULUS" },
+            { nisn: "3145341749", nama: "ANDI RENAT DHESAYEN RASBI", jk: "Laki-laki", tempatLahir: "MAKASSAR", tanggalLahir: "30 Januari 2014", status: "LULUS" },
+            { nisn: "0139584079", nama: "RADIT AL GASALI", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "09 Agustus 2013", status: "LULUS" },
+            { nisn: "0132178015", nama: "Faizal Perdana Nur Ali", jk: "Laki-laki", tempatLahir: "Tarakan", tanggalLahir: "25 Januari 2013", status: "LULUS" },
+            { nisn: "0135461316", nama: "MUH MALABI MYDANA", jk: "Laki-laki", tempatLahir: "Maros", tanggalLahir: "14 Desember 2013", status: "LULUS" },
+            { nisn: "0141287443", nama: "NUR LAILA MASITA", jk: "Perempuan", tempatLahir: "MAROS", tanggalLahir: "10 April 2014", status: "LULUS" },
+            { nisn: "3136566816", nama: "MUHAMMAD ARSIL ALI HASAN", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "27 September 2013", status: "LULUS" },
+            { nisn: "3144842295", nama: "VENTINO DIARGA PUTERA SAFI'I", jk: "Laki-laki", tempatLahir: "MAKASSAR", tanggalLahir: "14 Februari 2014", status: "LULUS" }
+        ];
+
+        function cekKelulusan() {
+            const input = document.getElementById("nisnInput").value.trim();
+            const hasilDiv = document.getElementById("hasil");
+            
+            if(input === "") {
+                alert("Harap masukkan NISN terlebih dahulu!");
+                return;
+            }
+
+            // Mencari siswa berdasarkan NISN
+        const siswa = dataSiswa.find(s => s.nisn === input);
+
+        hasilDiv.style.display = "block"; // Tampilkan kotak hasil
+
+        if (siswa) {
+            if (siswa.status === "LULUS") {
+                hasilDiv.className = "lulus";
+                hasilDiv.innerHTML = `
+                    <div style="text-align: center; margin-bottom: 15px; font-weight: 700; font-size: 18px; color: #15803d;">Data Ditemukan</div>
+                    <div class="data-row"><div class="data-label">Nama</div> <div class="titik-dua">:</div> <div class="data-value">${siswa.nama}</div></div>
+                    <div class="data-row"><div class="data-label">NISN</div> <div class="titik-dua">:</div> <div class="data-value">${siswa.nisn}</div></div>
+                    <div class="data-row"><div class="data-label">Jenis Kelamin</div> <div class="titik-dua">:</div> <div class="data-value">${siswa.jk}</div></div>
+                    <div class="data-row"><div class="data-label">Tempat, Tgl Lahir</div> <div class="titik-dua">:</div> <div class="data-value">${siswa.tempatLahir}, ${siswa.tanggalLahir}</div></div>
+                    <div style="text-align: center; margin-top: 15px;">
+                        <span class="status-badge badge-lulus">${siswa.status}</span>
+                    </div>
+                `;
+            } else {
+                hasilDiv.className = "tidak-lulus";
+                hasilDiv.innerHTML = `
+                    <div style="text-align: center; margin-bottom: 15px; font-weight: 700; font-size: 18px; color: #b91c1c;">Data Ditemukan</div>
+                    <div class="data-row"><div class="data-label">Nama</div> <div class="titik-dua">:</div> <div class="data-value">${siswa.nama}</div></div>
+                    <div class="data-row"><div class="data-label">NISN</div> <div class="titik-dua">:</div> <div class="data-value">${siswa.nisn}</div></div>
+                    <div class="data-row"><div class="data-label">Jenis Kelamin</div> <div class="titik-dua">:</div> <div class="data-value">${siswa.jk}</div></div>
+                    <div class="data-row"><div class="data-label">Tempat, Tgl Lahir</div> <div class="titik-dua">:</div> <div class="data-value">${siswa.tempatLahir}, ${siswa.tanggalLahir}</div></div>
+                    <div style="text-align: center; margin-top: 15px;">
+                        <span class="status-badge badge-gagal">${siswa.status}</span>
+                    </div>
+                `;
+            }
+        } else {
+            hasilDiv.className = "tidak-ditemukan";
+            hasilDiv.innerHTML = `Data dengan NISN <strong>${input}</strong> tidak ditemukan.<br><br>Pastikan NISN yang dimasukkan sudah benar.`;
+        }
+    }
+</script>
+
+</body>
+</html>
