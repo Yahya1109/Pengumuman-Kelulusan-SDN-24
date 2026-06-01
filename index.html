@@ -39,7 +39,6 @@
             background-size: 20px 20px, 100% 100%;
             background-position: 0 0, center center;
             background-attachment: fixed;
-            
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -88,27 +87,9 @@
             filter: drop-shadow(0 4px 6px rgba(0,0,0,0.08));
         }
 
-        .title-utama {
-            color: var(--primary);
-            font-size: 26px;
-            font-weight: 800;
-            margin: 0 0 5px 0;
-            letter-spacing: 0.5px;
-        }
-
-        .sub-title {
-            color: var(--text-main);
-            font-size: 16px;
-            font-weight: 600;
-            margin: 0 0 2px 0;
-        }
-
-        .tahun-ajaran {
-            color: var(--text-muted);
-            font-size: 14px;
-            font-weight: 500;
-            margin: 0 0 15px 0;
-        }
+        .title-utama { color: var(--primary); font-size: 26px; font-weight: 800; margin: 0 0 5px 0; letter-spacing: 0.5px; }
+        .sub-title { color: var(--text-main); font-size: 16px; font-weight: 600; margin: 0 0 2px 0; }
+        .tahun-ajaran { color: var(--text-muted); font-size: 14px; font-weight: 500; margin: 0 0 15px 0; }
 
         .tanggal-resmi {
             display: inline-block;
@@ -125,154 +106,47 @@
         .search-box { margin-bottom: 10px; }
 
         input[type="text"] {
-            width: 100%;
-            padding: 15px 20px;
-            margin: 0 0 15px 0;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 500;
-            box-sizing: border-box;
-            transition: all 0.3s ease;
-            font-family: 'Poppins', sans-serif;
-            text-align: center;
-            background-color: #f8fafc;
-            color: var(--text-main);
+            width: 100%; padding: 15px 20px; margin: 0 0 15px 0;
+            border: 2px solid #e2e8f0; border-radius: 12px; font-size: 16px;
+            font-weight: 500; box-sizing: border-box; transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif; text-align: center;
+            background-color: #f8fafc; color: var(--text-main);
         }
-
-        input[type="text"]:focus {
-            border-color: var(--primary);
-            background-color: #ffffff;
-            outline: none;
-            box-shadow: 0 0 0 4px rgba(29, 78, 216, 0.15);
-        }
+        input[type="text"]:focus { border-color: var(--primary); background-color: #ffffff; outline: none; box-shadow: 0 0 0 4px rgba(29, 78, 216, 0.15); }
 
         button.btn-primary {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 15px 20px;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-family: 'Poppins', sans-serif;
-            box-shadow: 0 4px 6px rgba(29, 78, 216, 0.2);
+            background-color: var(--primary); color: white; border: none;
+            padding: 15px 20px; border-radius: 12px; font-size: 16px; font-weight: 600;
+            cursor: pointer; width: 100%; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: 'Poppins', sans-serif; box-shadow: 0 4px 6px rgba(29, 78, 216, 0.2);
         }
-
-        button.btn-primary:hover { 
-            background-color: var(--primary-hover); 
-            transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(29, 78, 216, 0.3);
-        }
+        button.btn-primary:hover { background-color: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 8px 15px rgba(29, 78, 216, 0.3); }
 
         button.btn-success {
-            background-color: var(--success);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 15px;
-            transition: all 0.3s;
-            font-family: 'Poppins', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
+            background-color: var(--success); color: white; border: none; padding: 12px 20px;
+            border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer;
+            width: 100%; margin-top: 15px; transition: all 0.3s; font-family: 'Poppins', sans-serif;
+            display: flex; justify-content: center; align-items: center; gap: 8px; box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
         }
+        button.btn-success:hover { background-color: #059669; transform: translateY(-2px); box-shadow: 0 6px 12px rgba(16, 185, 129, 0.3); }
+        button.btn-success:disabled { background-color: #6ee7b7; cursor: not-allowed; transform: none; box-shadow: none; }
 
-        button.btn-success:hover {
-            background-color: #059669;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(16, 185, 129, 0.3);
-        }
+        #hasil-container { display: none; margin-top: 30px; text-align: left; animation: fadeIn 0.5s ease forwards; }
 
-        button.btn-success:disabled {
-            background-color: #6ee7b7;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        #hasil-container {
-            display: none;
-            margin-top: 30px;
-            text-align: left;
-            animation: fadeIn 0.5s ease forwards;
-        }
-
-        .result-card {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 25px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.04);
-            position: relative;
-        }
-
-        .result-header {
-            text-align: center;
-            font-weight: 700;
-            font-size: 18px;
-            margin-bottom: 20px;
-            color: var(--text-main);
-            padding-bottom: 10px;
-            border-bottom: 2px dashed #e2e8f0;
-        }
-
+        .result-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.04); position: relative; }
+        .result-header { text-align: center; font-weight: 700; font-size: 18px; margin-bottom: 20px; color: var(--text-main); padding-bottom: 10px; border-bottom: 2px dashed #e2e8f0; }
         .data-row { display: flex; margin-bottom: 12px; align-items: flex-start; }
         .data-label { font-weight: 600; color: var(--text-muted); width: 130px; flex-shrink: 0; font-size: 14px; }
         .data-titik { margin-right: 10px; color: var(--text-muted); font-weight: 600; }
         .data-value { color: var(--text-main); font-weight: 600; font-size: 14px; }
 
         .status-wrapper { text-align: center; margin: 25px 0 10px 0; }
-        .status-badge {
-            display: inline-block;
-            padding: 12px 40px;
-            border-radius: 50px;
-            font-weight: 800;
-            font-size: 24px;
-            letter-spacing: 2px;
-            animation: zoomIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
+        .status-badge { display: inline-block; padding: 12px 40px; border-radius: 50px; font-weight: 800; font-size: 24px; letter-spacing: 2px; animation: zoomIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         .badge-lulus { background-color: var(--success); color: white; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3); }
         .badge-gagal { background-color: var(--danger); color: white; box-shadow: 0 10px 20px rgba(239, 68, 68, 0.3); }
 
-        .pesan-ucapan {
-            background-color: var(--success-light);
-            color: var(--success-text);
-            padding: 15px 20px;
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: 500;
-            text-align: center;
-            margin-top: 20px;
-            line-height: 1.6;
-            border: 1px solid #a7f3d0;
-        }
-
-        .alert-error {
-            background-color: var(--danger-light);
-            color: var(--danger-text);
-            padding: 15px;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 500;
-            text-align: center;
-            border: 1px solid #fecaca;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
+        .pesan-ucapan { background-color: var(--success-light); color: var(--success-text); padding: 15px 20px; border-radius: 12px; font-size: 13px; font-weight: 500; text-align: center; margin-top: 20px; line-height: 1.6; border: 1px solid #a7f3d0; }
+        .alert-error { background-color: var(--danger-light); color: var(--danger-text); padding: 15px; border-radius: 12px; font-size: 14px; font-weight: 500; text-align: center; border: 1px solid #fecaca; display: flex; align-items: center; justify-content: center; gap: 10px; }
         .footer { margin-top: 25px; text-align: center; color: #64748b; font-size: 12px; font-weight: 500; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
@@ -287,9 +161,10 @@
             .status-badge { font-size: 20px; padding: 10px 30px; }
         }
 
-        /* Menyembunyikan SK dari tampilan secara aman tanpa display: none */
+        /* ===== STYLING KHUSUS UNTUK PDF SK ===== */
         #pdf-hidden-wrapper {
-            display: none; /* Disembunyikan saat normal. Akan di-override via JS saat klik Unduh */
+            display: none; 
+            background: white;
         }
 
         #sk-print-container {
@@ -305,15 +180,15 @@
             margin: 0;
         }
 
-        #sk-print-container h3, #sk-print-container h4, #sk-print-container h5 {
-            text-align: center; margin: 0; padding: 0; font-weight: bold;
-        }
-        #sk-print-container h3 { font-size: 16pt; margin-bottom: 5px; }
-        #sk-print-container h4 { font-size: 14pt; margin-bottom: 5px; }
-        #sk-print-container h5 { font-size: 12pt; font-weight: normal; margin-bottom: 5px; }
-
-        .kop-surat { border-bottom: 3px solid black; padding-bottom: 10px; margin-bottom: 20px; text-align: center; }
+        /* Styling spesifik Kop Surat */
+        .tabel-kop-surat { width: 100%; border-collapse: collapse; margin-bottom: 2px; border-bottom: 3px solid black; }
+        .tabel-kop-surat td { padding-bottom: 10px; }
+        .garis-tipis-kop { border-top: 1px solid black; margin-bottom: 20px; }
         
+        .teks-kop-h3 { font-size: 16pt; margin: 0 0 3px 0; font-weight: bold; text-align: center; }
+        .teks-kop-h4 { font-size: 14pt; margin: 0 0 3px 0; font-weight: bold; text-align: center; }
+        .teks-kop-h5 { font-size: 12pt; margin: 0 0 2px 0; font-weight: normal; text-align: center; }
+
         .judul-surat { text-align: center; margin-bottom: 20px; }
         .judul-surat div { font-weight: bold; }
         .judul-surat .garis-bawah { text-decoration: underline; }
@@ -330,7 +205,7 @@
         .ttd-box { width: 250px; text-align: left; }
         
         .tabel-lampiran { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 11pt; }
-        .tabel-lampiran th, .tabel-lampiran td { border: 1px solid black; padding: 6px; text-align: left; vertical-align: top; }
+        .tabel-lampiran th, .tabel-lampiran td { border: 1px solid black; padding: 6px; text-align: left; vertical-align: top; page-break-inside: avoid; }
         .tabel-lampiran th { background-color: #f2f2f2; text-align: center; font-weight: bold; }
         .text-center { text-align: center !important; }
         
@@ -342,6 +217,7 @@
 
     <div class="main-wrapper">
         <div class="container">
+            <!-- Gambar Logo Web -->
             <img src="logo.png" alt="Logo Sekolah" class="logo-sekolah" onerror="this.src='https://placehold.co/150x150/1d4ed8/white?text=SDN+24'">
             
             <h1 class="title-utama">PENGUMUMAN KELULUSAN</h1>
@@ -366,15 +242,28 @@
         </div>
     </div>
 
+    <!-- CONTAINER PDF TERSEMBUNYI -->
     <div id="pdf-hidden-wrapper">
         <div id="sk-print-container">
-            <!-- Halaman 1: SK -->
-            <div class="kop-surat">
-                <h3>PEMERINTAH KABUPATEN MAROS</h3>
-                <h4>UPTD SDN 24 BATANGASE</h4>
-                <h5>Alamat: Jl. Batangase buntu komp. Perhubungan udara Kec. Mandai Kab. Maros KP. 90552</h5>
-                <h5>NPSN: 40300307 NSS: 101190101001 E-Mail: sdn24batangase@gmail.com</h5>
-            </div>
+            
+            <!-- HALAMAN 1: SURAT KEPUTUSAN -->
+            
+            <!-- KOP SURAT BERFORMAT TABEL AGAR LOGO DAN TEKS TIDAK TERPOTONG/HILANG DI PDF -->
+            <table class="tabel-kop-surat">
+                <tr>
+                    <td style="width: 15%; text-align: center; vertical-align: middle;">
+                        <img src="logo.png" alt="Logo" style="width: 80px; height: auto;" onerror="this.src='https://placehold.co/100x100/1d4ed8/white?text=SDN+24'">
+                    </td>
+                    <td style="width: 85%; vertical-align: middle;">
+                        <h3 class="teks-kop-h3">PEMERINTAH KABUPATEN MAROS</h3>
+                        <h4 class="teks-kop-h4">UPTD SDN 24 BATANGASE</h4>
+                        <h5 class="teks-kop-h5">Alamat: Jl. Batangase buntu komp. Perhubungan udara Kec. Mandai Kab. Maros KP. 90552</h5>
+                        <h5 class="teks-kop-h5">NPSN: 40300307 NSS: 101190101001 E-Mail: sdn24batangase@gmail.com</h5>
+                    </td>
+                </tr>
+            </table>
+            <!-- Garis tipis kedua di bawah kop surat (opsional, ciri khas dokumen dinas) -->
+            <div class="garis-tipis-kop"></div>
 
             <div class="judul-surat">
                 <div class="garis-bawah">SURAT KEPUTUSAN</div>
@@ -459,7 +348,7 @@
                 </div>
             </div>
 
-            <!-- Halaman Lampiran Tabel -->
+            <!-- HALAMAN LAMPIRAN (TABEL DAFTAR SISWA) -->
             <div class="html2pdf__page-break"></div>
             
             <div>
@@ -623,7 +512,6 @@
         function cekKelulusan() {
             const input = document.getElementById("nisnInput").value.trim();
             const hasilContainer = document.getElementById("hasil-container");
-            
             hasilContainer.style.display = "none";
             
             if(input === "") {
@@ -677,7 +565,6 @@
                             <div class="pesan-ucapan" style="background-color: var(--danger-light); color: var(--danger-text); border-color: #fecaca;">Tetap semangat dan jangan putus asa. Kesuksesan masih menanti di waktu yang berbeda.</div>
                         `;
                     }
-
                     cardHTML += `</div>`;
                     hasilContainer.innerHTML = cardHTML;
                 } else {
@@ -698,11 +585,12 @@
             btn.innerHTML = '<span style="font-size:14px;">Memproses Dokumen PDF...</span>';
             btn.disabled = true;
 
-            // Render isi tabel lampiran jika masih kosong
+            // Render daftar siswa ke tabel jika belum dirender
             const tbody = document.getElementById('sk-table-body');
             if (tbody && tbody.innerHTML.trim() === '') {
                 let tableHTML = '';
                 let no = 1;
+                // Urutkan siswa berdasarkan nama
                 let sortedData = [...dataSiswa].sort((a, b) => a.nama.localeCompare(b.nama));
                 
                 sortedData.forEach(s => {
@@ -725,12 +613,13 @@
             const wrapper = document.getElementById('pdf-hidden-wrapper');
             const element = document.getElementById('sk-print-container');
             
-            // KUNCI SOLUSI: Menempatkan elemen tepat di kiri atas (0,0) di belakang layar
-            // Ini mencegah html2canvas kebingungan dalam menghitung bounding box x/y awal
+            // SOLUSI PASTI ANTI-POTONG: 
+            // Kita taruh elemen tepat di ujung kiri atas layar TANPA margin minus, 
+            // namun layer-nya ditaruh paling belakang (z-index: -9999) agar tak terlihat pengguna
             wrapper.style.display = 'block';
             wrapper.style.position = 'absolute';
-            wrapper.style.left = '0px';
-            wrapper.style.top = '0px';
+            wrapper.style.top = '0';
+            wrapper.style.left = '0';
             wrapper.style.zIndex = '-9999';
 
             setTimeout(() => {
@@ -740,16 +629,16 @@
                     image:        { type: 'jpeg', quality: 1.0 },
                     html2canvas:  { 
                         scale: 2, 
-                        useCORS: true, 
-                        // scrollX/scrollY mencegah crop saat user men-scroll ke bawah saat proses unduh
+                        useCORS: true, // Memungkinkan logo diload masuk ke PDF
                         scrollX: 0,
                         scrollY: 0, 
+                        windowWidth: document.documentElement.offsetWidth
                     },
                     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
                 };
 
                 html2pdf().set(opt).from(element).save().then(() => {
-                    wrapper.style.display = 'none'; // Sembunyikan lagi
+                    wrapper.style.display = 'none'; // Sembunyikan lagi setelah selesai
                     btn.innerHTML = originalText;
                     btn.disabled = false;
                 }).catch(err => {
@@ -759,7 +648,7 @@
                     btn.disabled = false;
                     alert("Maaf, terjadi kesalahan saat membuat PDF.");
                 });
-            }, 100); // Jeda kecil untuk merender CSS sebelum di capture
+            }, 300); // Jeda sedikit agar browser sempat merender gambar dan font
         }
     </script>
 </body>
