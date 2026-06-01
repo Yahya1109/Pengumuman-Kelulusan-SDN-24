@@ -739,56 +739,71 @@
             }, 10);
         }
 
-        function downloadSK() {
-            const btn = document.getElementById("btnDownloadSK");
-            const originalText = btn.innerHTML;
-            
-            // Ubah state tombol menjadi loading
-            btn.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="animate-spin"><circle cx="12" cy="12" r="10"></circle><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path></svg> Menyiapkan PDF...`;
-            btn.disabled = true;
+        <!-- ... existing code ... -->
+        }, 10); // Jeda singkat agar DOM merender ulang animasi
+    }
 
-            // Mengisi tabel lampiran jika masih kosong
-            const tbody = document.getElementById('sk-table-body');
-            if(tbody.innerHTML.trim() === '') {
-                let tableHTML = '';
-                // Mengurutkan siswa berdasarkan abjad untuk lampiran
-                const siswaSorted = [...dataSiswa].sort((a, b) => a.nama.localeCompare(b.nama));
-                
-                siswaSorted.forEach((s, index) => {
-                    const jkInitial = s.jk === 'Laki-laki' ? 'L' : 'P';
-                    const statusFormatted = s.status.charAt(0).toUpperCase() + s.status.slice(1).toLowerCase();
+    // Fungsi untuk mengunduh PDF SK Kelulusan
+    function downloadSK() {
+        const btn = document.querySelector('button[onclick="downloadSK()"]');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = 'Memproses PDF... (Mohon Tunggu)';
+        btn.disabled = true;
+
+        // Render isi tabel lampiran
+        const tbody = document.getElementById('sk-table-body');
+        if (tbody && tbody.innerHTML.trim() === '') {
+            let tableHTML = '';
+            let no = 1;
+            dataSiswa.forEach(s => {
+                if (s.status === 'LULUS') {
+                    let jkSingkat = s.jk === 'Laki-laki' ? 'L' : 'P';
                     tableHTML += `
                         <tr>
-                            <td style="text-align: center;">${index + 1}</td>
-                            <td>${s.nama}</td>
-                            <td style="text-align: center;">${jkInitial}</td>
-                            <td>${s.tempatLahir}, ${s.tanggalLahir}</td>
-                            <td style="text-align: center;">${statusFormatted}</td>
+                            <td style="text-align: center; padding: 3px;">${no++}</td>
+                            <td style="padding: 3px;">${s.nama}</td>
+                            <td style="text-align: center; padding: 3px;">${jkSingkat}</td>
+                            <td style="padding: 3px;">${s.tempatLahir}, ${s.tanggalLahir}</td>
+                            <td style="text-align: center; padding: 3px;">Lulus</td>
                         </tr>
                     `;
-                });
-                tbody.innerHTML = tableHTML;
-            }
-
-            // Area HTML target yang akan dirender jadi PDF
-            const element = document.getElementById('sk-print-container');
-            
-            // Konfigurasi kertas PDF (A4 Portrait)
-            const opt = {
-                margin:       [20, 15, 20, 15], // Margin: Atas, Kiri, Bawah, Kanan (mm)
-                filename:     'SK PENETAPAN KELULUSAN KELAS VI T.A 2025.2026.pdf',
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true, logging: false },
-                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
-
-            // Generate dan unduh PDF
-            html2pdf().set(opt).from(element).save().then(() => {
-                // Kembalikan state tombol
-                btn.innerHTML = originalText;
-                btn.disabled = false;
+                }
             });
+            tbody.innerHTML = tableHTML;
         }
-    </script>
+
+        // Area HTML target yang akan dirender jadi PDF
+        const element = document.getElementById('sk-print-container');
+        
+        // FIX BLANK PDF: Tampilkan sementara di titik 0,0 tapi ditumpuk di layer paling bawah
+        element.style.display = 'block';
+        element.style.position = 'absolute';
+        element.style.top = '0';
+        element.style.left = '0';
+        element.style.zIndex = '-9999';
+        
+        // Konfigurasi kertas PDF (A4 Portrait)
+        const opt = {
+            margin:       [20, 15, 20, 15], // Margin: Atas, Kiri, Bawah, Kanan (mm)
+            filename:     'SK PENETAPAN KELULUSAN KELAS VI T.A 2025.2026.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, useCORS: true, logging: false, scrollY: 0 },
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        // Generate dan unduh PDF
+        html2pdf().set(opt).from(element).save().then(() => {
+            // Sembunyikan kembali elemen targetnya
+            element.style.display = 'none';
+            element.style.position = 'static'; // Reset posisi
+            
+            // Kembalikan state tombol
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        });
+    }
+</script>
+</body>
+</html>
 </body>
 </html>
