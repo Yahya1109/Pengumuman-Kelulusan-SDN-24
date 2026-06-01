@@ -11,6 +11,9 @@
     <!-- Canvas Confetti Library -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
+    <!-- html2pdf Library untuk unduh PDF SK Kelulusan -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
     <style>
         :root {
             --primary: #1d4ed8;
@@ -29,7 +32,6 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            /* Background gradasi dengan pola titik (dots) samar */
             background-color: var(--bg-body);
             background-image: 
                 radial-gradient(#cbd5e1 1px, transparent 1px),
@@ -57,7 +59,6 @@
             align-items: center;
         }
 
-        /* Card Container Utama */
         .container {
             background-color: var(--card-bg);
             padding: 40px 35px;
@@ -70,7 +71,6 @@
             overflow: hidden;
         }
 
-        /* Aksen garis atas pada card */
         .container::before {
             content: '';
             position: absolute;
@@ -81,7 +81,6 @@
             background: linear-gradient(90deg, var(--primary), #3b82f6, #60a5fa);
         }
 
-        /* Header Styles */
         .logo-sekolah {
             width: 85px;
             height: auto;
@@ -123,7 +122,6 @@
             border: 1px solid #bfdbfe;
         }
 
-        /* Form Search */
         .search-box {
             margin-bottom: 10px;
         }
@@ -169,6 +167,10 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-family: 'Poppins', sans-serif;
             box-shadow: 0 4px 6px rgba(29, 78, 216, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
         }
 
         button:hover { 
@@ -181,7 +183,13 @@
             transform: translateY(1px);
         }
 
-        /* Card Hasil Pengumuman */
+        button:disabled {
+            background-color: #94a3b8;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
         #hasil-container {
             display: none;
             margin-top: 30px;
@@ -234,7 +242,6 @@
             font-size: 14px;
         }
 
-        /* Status Kelulusan */
         .status-wrapper {
             text-align: center;
             margin: 25px 0 10px 0;
@@ -262,7 +269,6 @@
             box-shadow: 0 10px 20px rgba(239, 68, 68, 0.3); 
         }
 
-        /* Pesan Ucapan Lulus */
         .pesan-ucapan {
             background-color: var(--success-light);
             color: var(--success-text);
@@ -272,11 +278,11 @@
             font-weight: 500;
             text-align: center;
             margin-top: 20px;
+            margin-bottom: 15px;
             line-height: 1.6;
             border: 1px solid #a7f3d0;
         }
 
-        /* Pesan Error (Tidak Ditemukan) */
         .alert-error {
             background-color: var(--danger-light);
             color: var(--danger-text);
@@ -292,7 +298,6 @@
             gap: 10px;
         }
 
-        /* Footer */
         .footer {
             margin-top: 25px;
             text-align: center;
@@ -301,7 +306,6 @@
             font-weight: 500;
         }
 
-        /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
@@ -314,7 +318,6 @@
             100% { transform: scale(1); }
         }
 
-        /* Responsive Mobile */
         @media (max-width: 480px) {
             .container {
                 padding: 30px 20px;
@@ -337,7 +340,7 @@
     <div class="main-wrapper">
         <div class="container">
             <!-- Header Sekolah -->
-            <img src="logo.png.png" alt="Logo Sekolah" class="logo-sekolah" onerror="this.src='https://placehold.co/150x150/1d4ed8/white?text=SDN+24'">
+            <img src="logo.png.png" alt="Logo Sekolah" class="logo-sekolah" onerror="this.src='https://placehold.co/150x150/1d4ed8/ffffff?text=SDN+24'">
             
             <h1 class="title-utama">PENGUMUMAN KELULUSAN</h1>
             <h2 class="sub-title">Siswa Kelas VI UPTD SDN 24 Batangase</h2>
@@ -350,7 +353,10 @@
             <!-- Form Pencarian -->
             <div class="search-box">
                 <input type="text" id="nisnInput" placeholder="Masukkan Nomor NISN" autocomplete="off" onkeypress="handleEnter(event)">
-                <button onclick="cekKelulusan()">Cek Hasil</button>
+                <button onclick="cekKelulusan()">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    Cek Hasil
+                </button>
             </div>
 
             <!-- Kontainer Hasil (Disembunyikan secara default) -->
@@ -360,6 +366,155 @@
         <!-- Footer Resmi -->
         <div class="footer">
             &copy; 2026 UPTD SDN 24 Batangase<br>Sistem Informasi Pengumuman Kelulusan
+        </div>
+    </div>
+
+    <!-- Container Tersembunyi untuk Render PDF SK Kelulusan -->
+    <div id="sk-print-container" style="position: absolute; left: -9999px; top: -9999px; width: 800px; background: white; color: black; text-align: left; font-family: 'Times New Roman', Times, serif; font-size: 12pt; padding: 60px 40px; box-sizing: border-box; line-height: 1.4;">
+        
+        <!-- Kop Surat SK -->
+        <div style="text-align: center; border-bottom: 3px solid black; padding-bottom: 10px; margin-bottom: 25px;">
+            <h3 style="margin: 0; font-size: 16pt; font-weight: bold;">PEMERINTAH KABUPATEN MAROS</h3>
+            <h2 style="margin: 0; font-size: 18pt; font-weight: bold;">UPTD SDN 24 BATANGASE</h2>
+            <p style="margin: 5px 0 0 0; font-size: 10pt;">Alamat: Jl. Batangase buntu komp. Perhubungan udara Kec. Mandai Kab. Maros KP. 90552</p>
+            <p style="margin: 0; font-size: 10pt;">NPSN: 40300307 NSS: 101190101001 E-Mail: sdn24batangase@gmail.com</p>
+        </div>
+        
+        <!-- Judul SK -->
+        <div style="text-align: center; margin-bottom: 25px;">
+            <h3 style="margin: 0; font-size: 14pt; text-decoration: underline; font-weight: bold;">SURAT KEPUTUSAN</h3>
+            <p style="margin: 5px 0 0 0; font-size: 12pt; font-weight: bold;">KEPALA UPTD SDN 24 BATANGASE</p>
+            <p style="margin: 0; font-size: 12pt;">Nomor: 421.2/057/SDN 24/VI/2026</p>
+        </div>
+
+        <div style="text-align: center; margin-bottom: 30px;">
+            <p style="margin: 0; font-size: 12pt;">Tentang</p>
+            <h3 style="margin: 5px 0 0 0; font-size: 12pt; font-weight: bold;">KELULUSAN PESERTA DIDIK KELAS VI<br>TAHUN PELAJARAN 2025/2026</h3>
+        </div>
+
+        <!-- Bagian Konsideran SK (Menimbang, Mengingat, Memperhatikan) -->
+        <table style="width: 100%; border: none; vertical-align: top; margin-bottom: 15px;">
+            <tr>
+                <td style="width: 20%; vertical-align: top;">Menimbang</td>
+                <td style="width: 3%; vertical-align: top;">:</td>
+                <td style="vertical-align: top;">
+                    <table style="width: 100%; border: none;">
+                        <tr><td style="width: 5%; vertical-align: top;">a.</td><td style="text-align: justify; padding-bottom: 8px;">Bahwa proses pembelajaran untuk peserta didik Kelas VI UPTD SDN 24 Batangase Tahun Pelajaran 2025/2026 telah selesai dan telah dilaksanakannya seluruh rangkaian asesmen/ujian sekolah;</td></tr>
+                        <tr><td style="vertical-align: top;">b.</td><td style="text-align: justify;">Bahwa untuk menjamin kepastian hukum dan tertib administrasi sekolah terkait hasil belajar peserta didik, perlu menetapkan kelulusan peserta didik Kelas VI yang dituangkan dalam Surat Keputusan Kepala Sekolah.</td></tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <table style="width: 100%; border: none; vertical-align: top; margin-bottom: 15px;">
+            <tr>
+                <td style="width: 20%; vertical-align: top;">Mengingat</td>
+                <td style="width: 3%; vertical-align: top;">:</td>
+                <td style="vertical-align: top;">
+                    <table style="width: 100%; border: none;">
+                        <tr><td style="width: 5%; vertical-align: top;">1.</td><td style="text-align: justify; padding-bottom: 5px;">Undang-Undang Nomor 20 Tahun 2003 tentang Sistem Pendidikan Nasional;</td></tr>
+                        <tr><td style="vertical-align: top;">2.</td><td style="text-align: justify; padding-bottom: 5px;">Peraturan Pemerintah Nomor 57 Tahun 2021 tentang Standar Nasional Pendidikan sebagaimana telah diubah dengan Peraturan Pemerintah Nomor 4 Tahun 2022;</td></tr>
+                        <tr><td style="vertical-align: top;">3.</td><td style="text-align: justify; padding-bottom: 5px;">Peraturan Menteri Pendidikan, Kebudayaan, Riset, dan Teknologi Nomor 5 Tahun 2022 tentang Standar Kompetensi Lulusan pada Pendidikan Anak Usia Dini, Jenjang Pendidikan Dasar, dan Jenjang Pendidikan Menengah;</td></tr>
+                        <tr><td style="vertical-align: top;">4.</td><td style="text-align: justify; padding-bottom: 5px;">Peraturan Menteri Pendidikan, Kebudayaan, Riset, dan Teknologi Nomor 21 Tahun 2022 tentang Standar Penilaian Pendidikan pada Pendidikan Anak Usia Dini, Jenjang Pendidikan Dasar, dan Jenjang Pendidikan Menengah;</td></tr>
+                        <tr><td style="vertical-align: top;">5.</td><td style="text-align: justify; padding-bottom: 5px;">Peraturan Menteri Pendidikan, Kebudayaan, Riset, dan Teknologi Nomor 12 Tahun 2024 tentang Kurikulum pada Pendidikan Anak Usia Dini, Jenjang Pendidikan Dasar, dan Jenjang Pendidikan Menengah;</td></tr>
+                        <tr><td style="vertical-align: top;">6.</td><td style="text-align: justify;">Pedoman Kepala Badan Standar, Kurikulum, dan Asesmen Pendidikan (BSKAP) Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi yang berlaku tentang Pedoman Pengelolaan Blangko Ijazah Pendidikan Dasar dan Pendidikan Menengah.</td></tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <table style="width: 100%; border: none; vertical-align: top; margin-bottom: 25px;">
+            <tr>
+                <td style="width: 20%; vertical-align: top;">Memperhatikan</td>
+                <td style="width: 3%; vertical-align: top;">:</td>
+                <td style="vertical-align: top; text-align: justify;">Hasil Rapat Pleno Dewan Guru UPTD SDN 24 Batangase pada tanggal 30 Mei 2026 tentang Penetapan Kelulusan Peserta Didik Kelas VI Tahun Pelajaran 2025/2026.</td>
+            </tr>
+        </table>
+        
+        <div style="text-align: center; margin: 25px 0;">
+            <h3 style="margin: 0; font-size: 14pt; font-weight: bold;">MEMUTUSKAN</h3>
+        </div>
+        
+        <table style="width: 100%; border: none; vertical-align: top; margin-bottom: 40px;">
+            <tr>
+                <td style="width: 20%; vertical-align: top; font-weight: bold;">Menetapkan</td>
+                <td style="width: 3%; vertical-align: top;">:</td>
+                <td style="vertical-align: top;"></td>
+            </tr>
+            <tr>
+                <td style="width: 20%; vertical-align: top;">KESATU</td>
+                <td style="width: 3%; vertical-align: top;">:</td>
+                <td style="vertical-align: top; text-align: justify; padding-bottom: 10px;">Menetapkan nama-nama peserta didik Kelas VI UPTD SDN 24 Batangase Tahun Pelajaran 2025/2026 sebagaimana tercantum dalam Lampiran Surat Keputusan ini dinyatakan LULUS.</td>
+            </tr>
+            <tr>
+                <td style="width: 20%; vertical-align: top;">KEDUA</td>
+                <td style="width: 3%; vertical-align: top;">:</td>
+                <td style="vertical-align: top; text-align: justify; padding-bottom: 10px;">Peserta didik yang dinyatakan lulus sebagaimana dimaksud pada Diktum KESATU berhak menerima Surat Keterangan Lulus (SKL) dan Ijazah sesuai dengan ketentuan peraturan perundang-undangan yang berlaku.</td>
+            </tr>
+            <tr>
+                <td style="width: 20%; vertical-align: top;">KETIGA</td>
+                <td style="width: 3%; vertical-align: top;">:</td>
+                <td style="vertical-align: top; text-align: justify;">Surat Keputusan ini mulai berlaku pada tanggal ditetapkan, dengan ketentuan apabila di kemudian hari terdapat kekeliruan di dalamnya akan ditinjau dan diperbaiki sebagaimana mestinya.</td>
+            </tr>
+        </table>
+
+        <div style="float: right; text-align: left; width: 300px; margin-right: 20px;">
+            <table style="width: 100%; border: none; font-size: 12pt;">
+                <tr><td style="width: 100px;">Ditetapkan di</td><td>: Mandai</td></tr>
+                <tr><td>Pada Tanggal</td><td>: 2 Juni 2026</td></tr>
+            </table>
+            <p style="margin: 15px 0 80px 0;">Kepala UPTD SDN 24 Batangase,</p>
+            <p style="margin: 0; font-weight: bold; text-decoration: underline;">MUMINANG, S.Pd</p>
+            <p style="margin: 0;">NIP. 19670203 198803 2 012</p>
+        </div>
+        <div style="clear: both;"></div>
+
+        <!-- PAGE BREAK UNTUK HALAMAN LAMPIRAN -->
+        <div class="html2pdf__page-break"></div>
+        
+        <div style="padding-top: 20px;">
+            <table style="width: 100%; border: none; vertical-align: top; margin-bottom: 25px; font-size: 11pt;">
+                <tr><td style="width: 15%; vertical-align: top;">Lampiran</td><td style="width: 3%; vertical-align: top;">:</td><td style="vertical-align: top;">Surat Keputusan Kepala UPTD SDN 24 Batangase</td></tr>
+                <tr><td style="vertical-align: top;">Nomor</td><td style="vertical-align: top;">:</td><td style="vertical-align: top;">421.2/057/SDN 24/VI/2026</td></tr>
+                <tr><td style="vertical-align: top;">Tanggal</td><td style="vertical-align: top;">:</td><td style="vertical-align: top;">2 Juni 2026</td></tr>
+                <tr><td style="vertical-align: top;">Tentang</td><td style="vertical-align: top;">:</td><td style="vertical-align: top; text-align: justify;">Kelulusan Peserta Didik Kelas VI Tahun Pelajaran 2025/2026</td></tr>
+            </table>
+
+            <div style="text-align: center; margin-bottom: 20px;">
+                <h3 style="margin: 0; font-size: 12pt; font-weight: bold;">Daftar Nama-nama Peserta Didik Kelas VI yang Dinyatakan Lulus dari<br>UPTD SDN 24 Batangase Kecamatan Mandai tahun 2025/2026</h3>
+            </div>
+
+            <!-- Tabel Daftar Siswa Lulus -->
+            <style>
+                #tabel-lampiran-sk th, #tabel-lampiran-sk td { padding: 8px 6px; border: 1px solid black; }
+                #tabel-lampiran-sk tr { page-break-inside: avoid; }
+            </style>
+            <table id="tabel-lampiran-sk" style="width: 100%; border-collapse: collapse; font-size: 11pt; margin-bottom: 30px;">
+                <thead>
+                    <tr style="text-align: center; font-weight: bold; background-color: #f0f0f0;">
+                        <th style="width: 5%;">No</th>
+                        <th style="width: 35%;">Nama Peserta Didik</th>
+                        <th style="width: 15%;">Jenis Kelamin</th>
+                        <th style="width: 30%;">Tempat & Tanggal Lahir</th>
+                        <th style="width: 15%;">Ket. Lulus</th>
+                    </tr>
+                </thead>
+                <tbody id="sk-table-body">
+                    <!-- Data diload dan dimasukkan ke sini oleh JavaScript -->
+                </tbody>
+            </table>
+
+            <!-- Tanda tangan halaman lampiran -->
+            <div style="float: right; text-align: left; width: 300px; margin-right: 20px; page-break-inside: avoid;">
+                <table style="width: 100%; border: none; font-size: 12pt;">
+                    <tr><td style="width: 100px;">Ditetapkan di</td><td>: Mandai</td></tr>
+                    <tr><td>Pada Tanggal</td><td>: 2 Juni 2026</td></tr>
+                </table>
+                <p style="margin: 15px 0 80px 0;">Kepala UPTD SDN 24 Batangase,</p>
+                <p style="margin: 0; font-weight: bold; text-decoration: underline;">MUMINANG, S.Pd</p>
+                <p style="margin: 0;">NIP. 19670203 198803 2 012</p>
+            </div>
+            <div style="clear: both;"></div>
         </div>
     </div>
 
@@ -373,7 +528,7 @@
             { nisn: "0141517833", nama: "AQHILA ULIFAH ALFRIANA", jk: "Perempuan", tempatLahir: "MAROS", tanggalLahir: "13 Januari 2014", status: "LULUS" },
             { nisn: "0141688822", nama: "FAUZIAH", jk: "Perempuan", tempatLahir: "TIMIKA", tanggalLahir: "31 Maret 2014", status: "LULUS" },
             { nisn: "0143088467", nama: "PANDU APRILIANSYAH", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "17 April 2014", status: "LULUS" },
-            { nisn: "0138522656", nama: "MOH. YAZID TAUFIQURROHΜΑΝ", jk: "Laki-laki", tempatLahir: "BANYUWANGI", tanggalLahir: "22 September 2013", status: "LULUS" },
+            { nisn: "0138522656", nama: "MOH. YAZID TAUFIQURROHMAN", jk: "Laki-laki", tempatLahir: "BANYUWANGI", tanggalLahir: "22 September 2013", status: "LULUS" },
             { nisn: "0137135368", nama: "SYAHRINI ALYA SAFITRI SYAHRIR", jk: "Perempuan", tempatLahir: "Makassar", tanggalLahir: "13 Agustus 2013", status: "LULUS" },
             { nisn: "0136934743", nama: "ADBIAN", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "07 Oktober 2013", status: "LULUS" },
             { nisn: "0138028197", nama: "FATHIR AHMAD RAMDAN", jk: "Laki-laki", tempatLahir: "MAROS", tanggalLahir: "23 Juli 2013", status: "LULUS" },
@@ -466,14 +621,12 @@
             { nisn: "3144842295", nama: "VENTINO DIARGA PUTERA SAFI'I", jk: "Laki-laki", tempatLahir: "MAKASSAR", tanggalLahir: "14 Februari 2014", status: "LULUS" }
         ];
 
-        // Memicu pencarian ketika tombol Enter ditekan pada form input
         function handleEnter(event) {
             if (event.key === 'Enter') {
                 cekKelulusan();
             }
         }
 
-        // Fungsi pemicu animasi Confetti (kertas warna-warni)
         function jalankanConfetti() {
             var count = 200;
             var defaults = {
@@ -494,15 +647,12 @@
             fire(0.1, { spread: 120, startVelocity: 45 });
         }
 
-        // Fungsi utama untuk mengecek dan menampilkan hasil kelulusan
         function cekKelulusan() {
             const input = document.getElementById("nisnInput").value.trim();
             const hasilContainer = document.getElementById("hasil-container");
             
-            // Reset state animasi
             hasilContainer.style.display = "none";
             
-            // Validasi Input Kosong
             if(input === "") {
                 hasilContainer.style.display = "block";
                 hasilContainer.innerHTML = `
@@ -514,10 +664,8 @@
                 return;
             }
 
-            // Mencari siswa berdasarkan NISN
             const siswa = dataSiswa.find(s => s.nisn === input);
             
-            // Render ulang div hasil agar animasi re-trigger
             setTimeout(() => {
                 hasilContainer.style.display = "block";
 
@@ -548,8 +696,9 @@
                             </div>
                     `;
 
+                    // Jika Siswa LULUS, tampilkan tombol Unduh SK
                     if (siswa.status === "LULUS") {
-                        jalankanConfetti(); // Efek perayaan kertas
+                        jalankanConfetti(); 
                         
                         cardHTML += `
                             <div class="status-wrapper">
@@ -558,8 +707,14 @@
                             <div class="pesan-ucapan">
                                 Selamat dan sukses atas kelulusan Anda. Teruslah belajar, berprestasi, dan menjaga nama baik sekolah.
                             </div>
+                            
+                            <button onclick="downloadSK()" id="btnDownloadSK" style="margin-top: 15px; background-color: var(--success); width: 100%;">
+                                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                Unduh SK Penetapan Kelulusan
+                            </button>
                         `;
                     } else {
+                        // Jika tidak lulus
                         cardHTML += `
                             <div class="status-wrapper">
                                 <span class="status-badge badge-gagal">TIDAK LULUS</span>
@@ -570,7 +725,7 @@
                         `;
                     }
 
-                    cardHTML += `</div>`; // Tutup card
+                    cardHTML += `</div>`;
                     hasilContainer.innerHTML = cardHTML;
                     
                 } else {
@@ -581,9 +736,59 @@
                         </div>
                     `;
                 }
-            }, 10); // Jeda singkat agar DOM merender ulang animasi
+            }, 10);
+        }
+
+        function downloadSK() {
+            const btn = document.getElementById("btnDownloadSK");
+            const originalText = btn.innerHTML;
+            
+            // Ubah state tombol menjadi loading
+            btn.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="animate-spin"><circle cx="12" cy="12" r="10"></circle><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path></svg> Menyiapkan PDF...`;
+            btn.disabled = true;
+
+            // Mengisi tabel lampiran jika masih kosong
+            const tbody = document.getElementById('sk-table-body');
+            if(tbody.innerHTML.trim() === '') {
+                let tableHTML = '';
+                // Mengurutkan siswa berdasarkan abjad untuk lampiran
+                const siswaSorted = [...dataSiswa].sort((a, b) => a.nama.localeCompare(b.nama));
+                
+                siswaSorted.forEach((s, index) => {
+                    const jkInitial = s.jk === 'Laki-laki' ? 'L' : 'P';
+                    const statusFormatted = s.status.charAt(0).toUpperCase() + s.status.slice(1).toLowerCase();
+                    tableHTML += `
+                        <tr>
+                            <td style="text-align: center;">${index + 1}</td>
+                            <td>${s.nama}</td>
+                            <td style="text-align: center;">${jkInitial}</td>
+                            <td>${s.tempatLahir}, ${s.tanggalLahir}</td>
+                            <td style="text-align: center;">${statusFormatted}</td>
+                        </tr>
+                    `;
+                });
+                tbody.innerHTML = tableHTML;
+            }
+
+            // Area HTML target yang akan dirender jadi PDF
+            const element = document.getElementById('sk-print-container');
+            
+            // Konfigurasi kertas PDF (A4 Portrait)
+            const opt = {
+                margin:       [20, 15, 20, 15], // Margin: Atas, Kiri, Bawah, Kanan (mm)
+                filename:     'SK PENETAPAN KELULUSAN KELAS VI T.A 2025.2026.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true, logging: false },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            // Generate dan unduh PDF
+            html2pdf().set(opt).from(element).save().then(() => {
+                // Kembalikan state tombol
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            });
         }
     </script>
-
 </body>
 </html>
