@@ -122,9 +122,7 @@
             border: 1px solid #bfdbfe;
         }
 
-        .search-box {
-            margin-bottom: 10px;
-        }
+        .search-box { margin-bottom: 10px; }
 
         input[type="text"] {
             width: 100%;
@@ -170,7 +168,6 @@
             box-shadow: 0 8px 15px rgba(29, 78, 216, 0.3);
         }
 
-        /* Tombol Unduh SK khusus */
         button.btn-success {
             background-color: var(--success);
             color: white;
@@ -230,12 +227,7 @@
             border-bottom: 2px dashed #e2e8f0;
         }
 
-        .data-row {
-            display: flex;
-            margin-bottom: 12px;
-            align-items: flex-start;
-        }
-
+        .data-row { display: flex; margin-bottom: 12px; align-items: flex-start; }
         .data-label { font-weight: 600; color: var(--text-muted); width: 130px; flex-shrink: 0; font-size: 14px; }
         .data-titik { margin-right: 10px; color: var(--text-muted); font-weight: 600; }
         .data-value { color: var(--text-main); font-weight: 600; font-size: 14px; }
@@ -250,7 +242,6 @@
             letter-spacing: 2px;
             animation: zoomIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
-
         .badge-lulus { background-color: var(--success); color: white; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3); }
         .badge-gagal { background-color: var(--danger); color: white; box-shadow: 0 10px 20px rgba(239, 68, 68, 0.3); }
 
@@ -291,19 +282,25 @@
             .container { padding: 30px 20px; border-radius: 20px; }
             .title-utama { font-size: 22px; }
             .sub-title { font-size: 14px; }
-            .tanggal-resmi { font-size: 11px; padding: 5px 12px; }
             .data-label { width: 110px; font-size: 13px; }
             .data-value { font-size: 13px; }
             .status-badge { font-size: 20px; padding: 10px 30px; }
         }
 
-        /* CSS ini memastikan dokumen terlihat seperti surat resmi menggunakan font Times New Roman */
+        /* SOLUSI PDF KOSONG: Wrapper ditempatkan jauh di luar layar kiri tapi tetap ter-render di DOM */
+        #pdf-hidden-wrapper {
+            position: absolute;
+            left: -15000px; /* Menyembunyikan dari layar pengguna */
+            top: 0;
+            width: 210mm; /* Lebar asli kertas A4 */
+        }
+
         #sk-print-container {
             font-family: "Times New Roman", Times, serif;
             color: black;
             font-size: 12pt;
             line-height: 1.5;
-            width: 210mm; /* Lebar kertas A4 */
+            width: 210mm;
             padding: 20mm; /* Margin dalam dokumen */
             background-color: white;
             box-sizing: border-box;
@@ -311,28 +308,15 @@
         }
 
         #sk-print-container h3, #sk-print-container h4, #sk-print-container h5 {
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            font-weight: bold;
+            text-align: center; margin: 0; padding: 0; font-weight: bold;
         }
-
         #sk-print-container h3 { font-size: 16pt; margin-bottom: 5px; }
         #sk-print-container h4 { font-size: 14pt; margin-bottom: 5px; }
         #sk-print-container h5 { font-size: 12pt; font-weight: normal; margin-bottom: 5px; }
 
-        .kop-surat {
-            border-bottom: 3px solid black;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .judul-surat {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
+        .kop-surat { border-bottom: 3px solid black; padding-bottom: 10px; margin-bottom: 20px; text-align: center; }
+        
+        .judul-surat { text-align: center; margin-bottom: 20px; }
         .judul-surat div { font-weight: bold; }
         .judul-surat .garis-bawah { text-decoration: underline; }
 
@@ -344,27 +328,15 @@
         .list-angka { list-style-type: decimal; padding-left: 20px; margin: 0; }
         .list-item { margin-bottom: 5px; }
 
-        .ttd-container {
-            margin-top: 30px;
-            display: flex;
-            justify-content: flex-end;
-        }
+        .ttd-container { margin-top: 30px; display: flex; justify-content: flex-end; }
         .ttd-box { width: 250px; text-align: left; }
         
-        .tabel-lampiran {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-            font-size: 11pt;
-        }
-        .tabel-lampiran th, .tabel-lampiran td {
-            border: 1px solid black;
-            padding: 6px;
-            text-align: left;
-        }
+        .tabel-lampiran { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 11pt; }
+        .tabel-lampiran th, .tabel-lampiran td { border: 1px solid black; padding: 6px; text-align: left; }
         .tabel-lampiran th { background-color: #f2f2f2; text-align: center; font-weight: bold; }
         .text-center { text-align: center !important; }
         
+        /* Memaksa halaman baru saat dijadikan PDF */
         .html2pdf__page-break { page-break-before: always; margin-top: 20mm; }
     </style>
 </head>
@@ -372,7 +344,6 @@
 
     <div class="main-wrapper">
         <div class="container">
-            <!-- Header Sekolah -->
             <img src="logo.png.png" alt="Logo Sekolah" class="logo-sekolah" onerror="this.src='https://placehold.co/150x150/1d4ed8/white?text=SDN+24'">
             
             <h1 class="title-utama">PENGUMUMAN KELULUSAN</h1>
@@ -383,7 +354,6 @@
                 Pengumuman Resmi: 2 Juni 2026 Pukul 09.00 WITA
             </div>
             
-            <!-- Form Pencarian -->
             <div class="search-box">
                 <input type="text" id="nisnInput" placeholder="Masukkan Nomor NISN" autocomplete="off" onkeypress="handleEnter(event)">
                 <button class="btn-primary" onclick="cekKelulusan()">Cek Hasil</button>
@@ -398,154 +368,142 @@
         </div>
     </div>
 
-    <!-- TEMPLATE SURAT KEPUTUSAN UNTUK RENDER PDF (Disembunyikan) -->
-    <div id="sk-print-container" style="display: none;">
-        <!-- Halaman 1: SK -->
-        <div class="kop-surat">
-            <h3>PEMERINTAH KABUPATEN MAROS</h3>
-            <h4>UPTD SDN 24 BATANGASE</h4>
-            <h5>Alamat: Jl. Batangase buntu komp. Perhubungan udara Kec. Mandai Kab. Maros KP. 90552</h5>
-            <h5>NPSN: 40300307 NSS: 101190101001 E-Mail: sdn24batangase@gmail.com</h5>
-        </div>
-
-        <div class="judul-surat">
-            <div class="garis-bawah">SURAT KEPUTUSAN</div>
-            <div>KEPALA UPTD SDN 24 BATANGASE</div>
-            <div>Nomor: 421.2/057/SDN 24/VI/2026</div>
-            <br>
-            <div>Tentang</div>
-            <div>KELULUSAN PESERTA DIDIK KELAS VI</div>
-            <div>TAHUN PELAJARAN 2025/2026</div>
-        </div>
-
-        <div class="surat-grid">
-            <div class="surat-label">Menimbang :</div>
-            <div class="surat-isi">
-                <ol class="list-huruf">
-                    <li class="list-item">Bahwa proses pembelajaran untuk peserta didik Kelas VI UPTD SDN 24 Batangase Tahun Pelajaran 2025/2026 telah selesai dan telah dilaksanakannya seluruh rangkaian asesmen/ujian sekolah;</li>
-                    <li class="list-item">Bahwa untuk menjamin kepastian hukum dan tertib administrasi sekolah terkait hasil belajar peserta didik, perlu menetapkan kelulusan peserta didik Kelas VI yang dituangkan dalam Surat Keputusan Kepala Sekolah.</li>
-                </ol>
+    <!-- Elemen pembungkus ini diletakkan di luar layar kiri agar tetap dirender sistem namun tak terlihat -->
+    <div id="pdf-hidden-wrapper">
+        <div id="sk-print-container">
+            <!-- Halaman 1: SK -->
+            <div class="kop-surat">
+                <h3>PEMERINTAH KABUPATEN MAROS</h3>
+                <h4>UPTD SDN 24 BATANGASE</h4>
+                <h5>Alamat: Jl. Batangase buntu komp. Perhubungan udara Kec. Mandai Kab. Maros KP. 90552</h5>
+                <h5>NPSN: 40300307 NSS: 101190101001 E-Mail: sdn24batangase@gmail.com</h5>
             </div>
-        </div>
 
-        <div class="surat-grid">
-            <div class="surat-label">Mengingat :</div>
-            <div class="surat-isi">
-                <ol class="list-angka">
-                    <li class="list-item">Undang-Undang Nomor 20 Tahun 2003 tentang Sistem Pendidikan Nasional;</li>
-                    <li class="list-item">Peraturan Pemerintah Nomor 57 Tahun 2021 tentang Standar Nasional Pendidikan sebagaimana telah diubah dengan Peraturan Pemerintah Nomor 4 Tahun 2022;</li>
-                    <li class="list-item">Peraturan Menteri Pendidikan, Kebudayaan, Riset, dan Teknologi Nomor 5 Tahun 2022 tentang Standar Kompetensi Lulusan pada Pendidikan Anak Usia Dini, Jenjang Pendidikan Dasar, dan Jenjang Pendidikan Menengah;</li>
-                    <li class="list-item">Peraturan Menteri Pendidikan, Kebudayaan, Riset, dan Teknologi Nomor 21 Tahun 2022 tentang Standar Penilaian Pendidikan pada Pendidikan Anak Usia Dini, Jenjang Pendidikan Dasar, dan Jenjang Pendidikan Menengah;</li>
-                    <li class="list-item">Peraturan Menteri Pendidikan, Kebudayaan, Riset, dan Teknologi Nomor 12 Tahun 2024 tentang Kurikulum pada Pendidikan Anak Usia Dini, Jenjang Pendidikan Dasar, dan Jenjang Pendidikan Menengah;</li>
-                    <li class="list-item">Pedoman Kepala Badan Standar, Kurikulum, dan Asesmen Pendidikan (BSKAP) Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi yang berlaku tentang Pedoman Pengelolaan Blangko Ijazah Pendidikan Dasar dan Pendidikan Menengah.</li>
-                </ol>
+            <div class="judul-surat">
+                <div class="garis-bawah">SURAT KEPUTUSAN</div>
+                <div>KEPALA UPTD SDN 24 BATANGASE</div>
+                <div>Nomor: 421.2/057/SDN 24/VI/2026</div>
+                <br>
+                <div>Tentang</div>
+                <div>KELULUSAN PESERTA DIDIK KELAS VI</div>
+                <div>TAHUN PELAJARAN 2025/2026</div>
             </div>
-        </div>
 
-        <div class="surat-grid">
-            <div class="surat-label">Memperhatikan:</div>
-            <div class="surat-isi">
-                Hasil Rapat Pleno Dewan Guru UPTD SDN 24 Batangase pada tanggal 30 Mei 2026 tentang Penetapan Kelulusan Peserta Didik Kelas VI Tahun Pelajaran 2025/2026.
+            <div class="surat-grid">
+                <div class="surat-label">Menimbang :</div>
+                <div class="surat-isi">
+                    <ol class="list-huruf">
+                        <li class="list-item">Bahwa proses pembelajaran untuk peserta didik Kelas VI UPTD SDN 24 Batangase Tahun Pelajaran 2025/2026 telah selesai dan telah dilaksanakannya seluruh rangkaian asesmen/ujian sekolah;</li>
+                        <li class="list-item">Bahwa untuk menjamin kepastian hukum dan tertib administrasi sekolah terkait hasil belajar peserta didik, perlu menetapkan kelulusan peserta didik Kelas VI yang dituangkan dalam Surat Keputusan Kepala Sekolah.</li>
+                    </ol>
+                </div>
             </div>
-        </div>
 
-        <div class="judul-surat" style="margin-top: 15px;">
-            <div>MEMUTUSKAN</div>
-        </div>
-
-        <div class="surat-grid">
-            <div class="surat-label">Menetapkan :</div>
-            <div class="surat-isi"></div>
-        </div>
-        
-        <div class="surat-grid">
-            <div class="surat-label">KESATU :</div>
-            <div class="surat-isi">
-                Menetapkan nama-nama peserta didik Kelas VI UPTD SDN 24 Batangase Tahun Pelajaran 2025/2026 sebagaimana tercantum dalam Lampiran Surat Keputusan ini dinyatakan LULUS.
+            <div class="surat-grid">
+                <div class="surat-label">Mengingat :</div>
+                <div class="surat-isi">
+                    <ol class="list-angka">
+                        <li class="list-item">Undang-Undang Nomor 20 Tahun 2003 tentang Sistem Pendidikan Nasional;</li>
+                        <li class="list-item">Peraturan Pemerintah Nomor 57 Tahun 2021 tentang Standar Nasional Pendidikan sebagaimana telah diubah dengan Peraturan Pemerintah Nomor 4 Tahun 2022;</li>
+                        <li class="list-item">Peraturan Menteri Pendidikan, Kebudayaan, Riset, dan Teknologi Nomor 5 Tahun 2022 tentang Standar Kompetensi Lulusan pada Pendidikan Anak Usia Dini, Jenjang Pendidikan Dasar, dan Jenjang Pendidikan Menengah;</li>
+                        <li class="list-item">Peraturan Menteri Pendidikan, Kebudayaan, Riset, dan Teknologi Nomor 21 Tahun 2022 tentang Standar Penilaian Pendidikan pada Pendidikan Anak Usia Dini, Jenjang Pendidikan Dasar, dan Jenjang Pendidikan Menengah;</li>
+                        <li class="list-item">Peraturan Menteri Pendidikan, Kebudayaan, Riset, dan Teknologi Nomor 12 Tahun 2024 tentang Kurikulum pada Pendidikan Anak Usia Dini, Jenjang Pendidikan Dasar, dan Jenjang Pendidikan Menengah;</li>
+                        <li class="list-item">Pedoman Kepala Badan Standar, Kurikulum, dan Asesmen Pendidikan (BSKAP) Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi yang berlaku tentang Pedoman Pengelolaan Blangko Ijazah Pendidikan Dasar dan Pendidikan Menengah.</li>
+                    </ol>
+                </div>
             </div>
-        </div>
 
-        <div class="surat-grid">
-            <div class="surat-label">KEDUA :</div>
-            <div class="surat-isi">
-                Peserta didik yang dinyatakan lulus sebagaimana dimaksud pada Diktum KESATU berhak menerima Surat Keterangan Lulus (SKL) dan Ijazah sesuai dengan ketentuan peraturan perundang-undangan yang berlaku.
+            <div class="surat-grid">
+                <div class="surat-label">Memperhatikan:</div>
+                <div class="surat-isi">
+                    Hasil Rapat Pleno Dewan Guru UPTD SDN 24 Batangase pada tanggal 30 Mei 2026 tentang Penetapan Kelulusan Peserta Didik Kelas VI Tahun Pelajaran 2025/2026.
+                </div>
             </div>
-        </div>
 
-        <div class="surat-grid">
-            <div class="surat-label">KETIGA :</div>
-            <div class="surat-isi">
-                Surat Keputusan ini mulai berlaku pada tanggal ditetapkan, dengan ketentuan apabila di kemudian hari terdapat kekeliruan di dalamnya akan ditinjau dan diperbaiki sebagaimana mestinya.
+            <div class="judul-surat" style="margin-top: 15px;">
+                <div>MEMUTUSKAN</div>
             </div>
-        </div>
 
-        <div class="ttd-container">
-            <div class="ttd-box">
-                <div>Ditetapkan di : Mandai</div>
-                <div>Pada Tanggal : 2 Juni 2026</div>
-                <div style="font-weight: bold; margin-bottom: 70px;">Kepala UPTD SDN 24 Batangase</div>
-                <div style="font-weight: bold; text-decoration: underline;">MUMINANG, S.Pd</div>
-                <div>NIP. 19670203 198803 2 012</div>
+            <div class="surat-grid">
+                <div class="surat-label">Menetapkan :</div>
+                <div class="surat-isi"></div>
             </div>
-        </div>
+            
+            <div class="surat-grid">
+                <div class="surat-label">KESATU :</div>
+                <div class="surat-isi">
+                    Menetapkan nama-nama peserta didik Kelas VI UPTD SDN 24 Batangase Tahun Pelajaran 2025/2026 sebagaimana tercantum dalam Lampiran Surat Keputusan ini dinyatakan LULUS.
+                </div>
+            </div>
 
-        <!-- Halaman Lampiran (Di-break ke halaman baru saat PDF) -->
-        <div class="html2pdf__page-break"></div>
-        
-        <div>
-            <table style="width: 100%; border: none; font-size: 11pt; margin-bottom: 15px;">
-                <tr>
-                    <td style="width: 80px; vertical-align: top;">Lampiran</td>
-                    <td style="width: 10px; vertical-align: top;">:</td>
-                    <td>Surat Keputusan Kepala UPTD SDN 24 Batangase</td>
-                </tr>
-                <tr>
-                    <td style="vertical-align: top;">Nomor</td>
-                    <td style="vertical-align: top;">:</td>
-                    <td>421.2/057/SDN 24/VI/2026, Tanggal 2 Juni 2026</td>
-                </tr>
-                <tr>
-                    <td style="vertical-align: top;">Tentang</td>
-                    <td style="vertical-align: top;">:</td>
-                    <td>Kelulusan Peserta Didik Kelas VI Tahun Pelajaran 2025/2026</td>
-                </tr>
+            <div class="surat-grid">
+                <div class="surat-label">KEDUA :</div>
+                <div class="surat-isi">
+                    Peserta didik yang dinyatakan lulus sebagaimana dimaksud pada Diktum KESATU berhak menerima Surat Keterangan Lulus (SKL) dan Ijazah sesuai dengan ketentuan peraturan perundang-undangan yang berlaku.
+                </div>
+            </div>
+
+            <div class="surat-grid">
+                <div class="surat-label">KETIGA :</div>
+                <div class="surat-isi">
+                    Surat Keputusan ini mulai berlaku pada tanggal ditetapkan, dengan ketentuan apabila di kemudian hari terdapat kekeliruan di dalamnya akan ditinjau dan diperbaiki sebagaimana mestinya.
+                </div>
+            </div>
+
+            <div class="ttd-container">
+                <div class="ttd-box">
+                    <div>Ditetapkan di : Mandai</div>
+                    <div>Pada Tanggal : 2 Juni 2026</div>
+                    <div style="font-weight: bold; margin-bottom: 70px;">Kepala UPTD SDN 24 Batangase</div>
+                    <div style="font-weight: bold; text-decoration: underline;">MUMINANG, S.Pd</div>
+                    <div>NIP. 19670203 198803 2 012</div>
+                </div>
+            </div>
+
+            <!-- Halaman Lampiran -->
+            <div class="html2pdf__page-break"></div>
+            
+            <div>
+                <table style="width: 100%; border: none; font-size: 11pt; margin-bottom: 15px;">
+                    <tr><td style="width: 80px; vertical-align: top;">Lampiran</td><td style="width: 10px; vertical-align: top;">:</td><td>Surat Keputusan Kepala UPTD SDN 24 Batangase</td></tr>
+                    <tr><td style="vertical-align: top;">Nomor</td><td style="vertical-align: top;">:</td><td>421.2/057/SDN 24/VI/2026, Tanggal 2 Juni 2026</td></tr>
+                    <tr><td style="vertical-align: top;">Tentang</td><td style="vertical-align: top;">:</td><td>Kelulusan Peserta Didik Kelas VI Tahun Pelajaran 2025/2026</td></tr>
+                </table>
+            </div>
+
+            <div style="text-align: center; font-weight: bold; font-size: 12pt; margin-bottom: 15px;">
+                Daftar Nama-nama Peserta Didik Kelas VI yang Dinyatakan Lulus dari<br>
+                UPTD SDN 24 Batangase Kecamatan Mandai tahun 2025/2026
+            </div>
+
+            <table class="tabel-lampiran">
+                <thead>
+                    <tr>
+                        <th style="width: 5%;">No</th>
+                        <th style="width: 35%;">Nama Peserta Didik</th>
+                        <th style="width: 10%;">L/P</th>
+                        <th style="width: 35%;">Tempat & Tanggal Lahir</th>
+                        <th style="width: 15%;">Ket.</th>
+                    </tr>
+                </thead>
+                <tbody id="sk-table-body"></tbody>
             </table>
-        </div>
 
-        <div style="text-align: center; font-weight: bold; font-size: 12pt; margin-bottom: 15px;">
-            Daftar Nama-nama Peserta Didik Kelas VI yang Dinyatakan Lulus dari<br>
-            UPTD SDN 24 Batangase Kecamatan Mandai tahun 2025/2026
-        </div>
-
-        <table class="tabel-lampiran">
-            <thead>
-                <tr>
-                    <th style="width: 5%;">No</th>
-                    <th style="width: 35%;">Nama Peserta Didik</th>
-                    <th style="width: 10%;">L/P</th>
-                    <th style="width: 35%;">Tempat & Tanggal Lahir</th>
-                    <th style="width: 15%;">Ket.</th>
-                </tr>
-            </thead>
-            <!-- Tabel tbody ini akan diisi secara otomatis oleh JavaScript -->
-            <tbody id="sk-table-body"></tbody>
-        </table>
-
-        <div class="html2pdf__page-break"></div> <!-- Memecah agar TTD lampiran rapi jika siswa banyak -->
-        <div class="ttd-container" style="margin-top: 40px;">
-            <div class="ttd-box">
-                <div>Ditetapkan di : Mandai</div>
-                <div>Pada Tanggal : 2 Juni 2026</div>
-                <div style="font-weight: bold; margin-bottom: 70px;">Kepala UPTD SDN 24 Batangase</div>
-                <div style="font-weight: bold; text-decoration: underline;">MUMINANG, S.Pd</div>
-                <div>NIP. 19670203 198803 2 012</div>
+            <div class="html2pdf__page-break"></div> 
+            <div class="ttd-container" style="margin-top: 40px;">
+                <div class="ttd-box">
+                    <div>Ditetapkan di : Mandai</div>
+                    <div>Pada Tanggal : 2 Juni 2026</div>
+                    <div style="font-weight: bold; margin-bottom: 70px;">Kepala UPTD SDN 24 Batangase</div>
+                    <div style="font-weight: bold; text-decoration: underline;">MUMINANG, S.Pd</div>
+                    <div>NIP. 19670203 198803 2 012</div>
+                </div>
             </div>
-        </div>
 
+        </div>
     </div>
 
     <script>
-        // Database 98 Siswa UPTD SDN 24 BATANGASE
         const dataSiswa = [
             { nisn: "0136855196", nama: "AHMAD DZAKI LAMBO", jk: "Laki-laki", tempatLahir: "MAKASSAR", tanggalLahir: "03 Desember 2013", status: "LULUS" },
             { nisn: "0139589138", nama: "AQZA AZ ZAHRA", jk: "Perempuan", tempatLahir: "MAROS", tanggalLahir: "18 Oktober 2013", status: "LULUS" },
@@ -710,7 +668,6 @@
                             <div class="status-wrapper"><span class="status-badge badge-lulus">LULUS</span></div>
                             <div class="pesan-ucapan">Selamat dan sukses atas kelulusan Anda. Teruslah belajar, berprestasi, dan menjaga nama baik sekolah.</div>
                             
-                            <!-- Tombol Baru untuk Unduh PDF SK Lulus -->
                             <button class="btn-success" onclick="downloadSK()">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                                 Unduh SK Penetapan Kelulusan
@@ -737,15 +694,14 @@
         }
 
         function downloadSK() {
-            // Ambil tombol yang sedang ditekan
             const btn = document.querySelector('button[onclick="downloadSK()"]');
             const originalText = btn.innerHTML;
             
-            // Ubah teks tombol jadi loading
-            btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite;"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg> Memproses PDF...';
+            // Ubah teks tombol jadi loading animasi sederhana
+            btn.innerHTML = '<span style="font-size:14px;">Memproses Dokumen PDF...</span>';
             btn.disabled = true;
 
-            // Render isi tabel lampiran secara dinamis jika masih kosong
+            // Render isi tabel lampiran jika masih kosong
             const tbody = document.getElementById('sk-table-body');
             if (tbody && tbody.innerHTML.trim() === '') {
                 let tableHTML = '';
@@ -770,44 +726,29 @@
                 tbody.innerHTML = tableHTML;
             }
 
-            // Ambil elemen HTML yang akan diubah ke PDF
+            // Target elemen SK (Elemen ini berada di posisi left: -15000px pada CSS)
             const element = document.getElementById('sk-print-container');
             
-            // Trik untuk mencegah PDF Blank:
-            // Tampilkan elemen secara absolut di atas layar, 
-            // lalu posisikan layer paling belakang (-9999) agar user tidak melihatnya berkedip.
-            element.style.display = 'block';
-            element.style.position = 'absolute';
-            element.style.top = '0';
-            element.style.left = '0';
-            element.style.zIndex = '-9999';
-
             // Pengaturan html2pdf
             const opt = {
-                margin:       0, // Margin diatur via CSS padding agar tidak terpotong
-                filename:     'SK PENETAPAN KELULUSAN KELAS VI T.A 2025.2026.pdf.pdf',
+                margin:       0, 
+                filename:     'SK PENETAPAN KELULUSAN KELAS VI T.A 2025.2026.pdf',
                 image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true, logging: false, scrollY: 0 },
+                // scale 2 membuat tulisan PDF lebih tajam, scrollY: 0 menstabilkan render
+                html2canvas:  { scale: 2, useCORS: true, scrollY: 0, windowWidth: 1200 },
                 jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
 
-            // Tambahkan CSS keyframes untuk animasi loading khusus saat unduh
-            const styleLoading = document.createElement('style');
-            styleLoading.innerHTML = `@keyframes spin { 100% { transform: rotate(360deg); } }`;
-            document.head.appendChild(styleLoading);
-
-            // Proses Generate dan Simpan
+            // Proses pembuatan PDF
             html2pdf().set(opt).from(element).save().then(() => {
-                // Kembalikan elemen menjadi tersembunyi
-                element.style.display = 'none';
-                element.style.position = 'static';
-                
-                // Kembalikan state tombol
+                // Kembalikan tombol seperti semula setelah selesai
                 btn.innerHTML = originalText;
                 btn.disabled = false;
-                
-                // Hapus style loading
-                document.head.removeChild(styleLoading);
+            }).catch(err => {
+                console.error("Kesalahan rendering PDF:", err);
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                alert("Maaf, terjadi kesalahan saat membuat PDF.");
             });
         }
     </script>
