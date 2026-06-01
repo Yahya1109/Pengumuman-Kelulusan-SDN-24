@@ -287,12 +287,9 @@
             .status-badge { font-size: 20px; padding: 10px 30px; }
         }
 
-        /* SOLUSI PDF KOSONG: Wrapper ditempatkan jauh di luar layar kiri tapi tetap ter-render di DOM */
+        /* Menyembunyikan SK dari tampilan secara aman tanpa display: none */
         #pdf-hidden-wrapper {
-            position: absolute;
-            left: -15000px; /* Menyembunyikan dari layar pengguna */
-            top: 0;
-            width: 210mm; /* Lebar asli kertas A4 */
+            display: none; /* Disembunyikan saat normal. Akan di-override via JS saat klik Unduh */
         }
 
         #sk-print-container {
@@ -300,11 +297,12 @@
             color: black;
             font-size: 12pt;
             line-height: 1.5;
-            width: 210mm;
-            padding: 20mm; /* Margin dalam dokumen */
+            width: 210mm; /* Lebar Asli Kertas A4 */
+            padding: 20mm; /* Margin Dokumen A4 */
             background-color: white;
             box-sizing: border-box;
             text-align: justify;
+            margin: 0;
         }
 
         #sk-print-container h3, #sk-print-container h4, #sk-print-container h5 {
@@ -326,13 +324,13 @@
 
         .list-huruf { list-style-type: lower-alpha; padding-left: 20px; margin: 0; }
         .list-angka { list-style-type: decimal; padding-left: 20px; margin: 0; }
-        .list-item { margin-bottom: 5px; }
+        .list-item { margin-bottom: 5px; text-align: justify; }
 
         .ttd-container { margin-top: 30px; display: flex; justify-content: flex-end; }
         .ttd-box { width: 250px; text-align: left; }
         
         .tabel-lampiran { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 11pt; }
-        .tabel-lampiran th, .tabel-lampiran td { border: 1px solid black; padding: 6px; text-align: left; }
+        .tabel-lampiran th, .tabel-lampiran td { border: 1px solid black; padding: 6px; text-align: left; vertical-align: top; }
         .tabel-lampiran th { background-color: #f2f2f2; text-align: center; font-weight: bold; }
         .text-center { text-align: center !important; }
         
@@ -344,7 +342,7 @@
 
     <div class="main-wrapper">
         <div class="container">
-            <img src="logo.png.png" alt="Logo Sekolah" class="logo-sekolah" onerror="this.src='https://placehold.co/150x150/1d4ed8/white?text=SDN+24'">
+            <img src="logo.png" alt="Logo Sekolah" class="logo-sekolah" onerror="this.src='https://placehold.co/150x150/1d4ed8/white?text=SDN+24'">
             
             <h1 class="title-utama">PENGUMUMAN KELULUSAN</h1>
             <h2 class="sub-title">Siswa Kelas VI UPTD SDN 24 Batangase</h2>
@@ -368,7 +366,6 @@
         </div>
     </div>
 
-    <!-- Elemen pembungkus ini diletakkan di luar layar kiri agar tetap dirender sistem namun tak terlihat -->
     <div id="pdf-hidden-wrapper">
         <div id="sk-print-container">
             <!-- Halaman 1: SK -->
@@ -443,6 +440,8 @@
                 </div>
             </div>
 
+            <div class="html2pdf__page-break"></div>
+
             <div class="surat-grid">
                 <div class="surat-label">KETIGA :</div>
                 <div class="surat-isi">
@@ -460,7 +459,7 @@
                 </div>
             </div>
 
-            <!-- Halaman Lampiran -->
+            <!-- Halaman Lampiran Tabel -->
             <div class="html2pdf__page-break"></div>
             
             <div>
@@ -489,7 +488,6 @@
                 <tbody id="sk-table-body"></tbody>
             </table>
 
-            <div class="html2pdf__page-break"></div> 
             <div class="ttd-container" style="margin-top: 40px;">
                 <div class="ttd-box">
                     <div>Ditetapkan di : Mandai</div>
@@ -697,7 +695,6 @@
             const btn = document.querySelector('button[onclick="downloadSK()"]');
             const originalText = btn.innerHTML;
             
-            // Ubah teks tombol jadi loading animasi sederhana
             btn.innerHTML = '<span style="font-size:14px;">Memproses Dokumen PDF...</span>';
             btn.disabled = true;
 
@@ -706,7 +703,6 @@
             if (tbody && tbody.innerHTML.trim() === '') {
                 let tableHTML = '';
                 let no = 1;
-                // Urutkan siswa secara alfabetis agar lebih rapi di lampiran
                 let sortedData = [...dataSiswa].sort((a, b) => a.nama.localeCompare(b.nama));
                 
                 sortedData.forEach(s => {
@@ -726,30 +722,44 @@
                 tbody.innerHTML = tableHTML;
             }
 
-            // Target elemen SK (Elemen ini berada di posisi left: -15000px pada CSS)
+            const wrapper = document.getElementById('pdf-hidden-wrapper');
             const element = document.getElementById('sk-print-container');
             
-            // Pengaturan html2pdf
-            const opt = {
-                margin:       0, 
-                filename:     'SK PENETAPAN KELULUSAN KELAS VI T.A 2025.2026.pdf',
-                image:        { type: 'jpeg', quality: 0.98 },
-                // scale 2 membuat tulisan PDF lebih tajam, scrollY: 0 menstabilkan render
-                html2canvas:  { scale: 2, useCORS: true, scrollY: 0, windowWidth: 1200 },
-                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
+            // KUNCI SOLUSI: Menempatkan elemen tepat di kiri atas (0,0) di belakang layar
+            // Ini mencegah html2canvas kebingungan dalam menghitung bounding box x/y awal
+            wrapper.style.display = 'block';
+            wrapper.style.position = 'absolute';
+            wrapper.style.left = '0px';
+            wrapper.style.top = '0px';
+            wrapper.style.zIndex = '-9999';
 
-            // Proses pembuatan PDF
-            html2pdf().set(opt).from(element).save().then(() => {
-                // Kembalikan tombol seperti semula setelah selesai
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-            }).catch(err => {
-                console.error("Kesalahan rendering PDF:", err);
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-                alert("Maaf, terjadi kesalahan saat membuat PDF.");
-            });
+            setTimeout(() => {
+                const opt = {
+                    margin:       0, 
+                    filename:     'SK PENETAPAN KELULUSAN KELAS VI T.A 2025.2026.pdf',
+                    image:        { type: 'jpeg', quality: 1.0 },
+                    html2canvas:  { 
+                        scale: 2, 
+                        useCORS: true, 
+                        // scrollX/scrollY mencegah crop saat user men-scroll ke bawah saat proses unduh
+                        scrollX: 0,
+                        scrollY: 0, 
+                    },
+                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                };
+
+                html2pdf().set(opt).from(element).save().then(() => {
+                    wrapper.style.display = 'none'; // Sembunyikan lagi
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }).catch(err => {
+                    console.error("Kesalahan rendering PDF:", err);
+                    wrapper.style.display = 'none';
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    alert("Maaf, terjadi kesalahan saat membuat PDF.");
+                });
+            }, 100); // Jeda kecil untuk merender CSS sebelum di capture
         }
     </script>
 </body>
